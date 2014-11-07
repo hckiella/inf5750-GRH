@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>Facility registry DHIS2 App</title>
+    <link href="css/bootstrap.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="shortcut icon" href="../../favicon.ico" /> 
+
+</head>
+<script>
+    var xhReq = new XMLHttpRequest();
+    xhReq.open("GET", "manifest.webapp", false);
+    xhReq.send(null);
+    var serverResponse = JSON.parse(xhReq.responseText);
+    var dhisAPI = serverResponse.activities.dhis.href;
+</script>
+<body>

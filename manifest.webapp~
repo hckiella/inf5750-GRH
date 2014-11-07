@@ -1,0 +1,25 @@
+{
+    "version":"0.1",
+    "name":"GRH facility registration app",
+    "description":"Simple web app."
+   },
+
+
+    "developer":{
+    "url":"https://wiki.uio.no/mn/ifi/inf5750/index.php/GHR",
+        "name":"GRH",
+        "company":"University of Oslo",
+        "email":"test@test.no"
+},
+    "activities":{
+    "dhis":{
+        "href":"*"
+    }
+},
+    "launchUrl":null,
+    "launch_path":"index.html",
+    "installs_allowed_from":[
+    "*"
+],
+    "default_locale":"en"
+}
