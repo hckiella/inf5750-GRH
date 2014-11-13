@@ -1,0 +1,34 @@
+<h2>Organisation Units</h2>
+
+<button id="levelUp" ng-click="data(singleOrgUnit.parent); clearMap()" ng-if="singleOrgUnit.parent" type="submit">Move one level up</button>
+
+<div id="info" ng-if="singleOrgUnit.level == 4">
+<table>
+<tr><th>Id</th><td>{{singleOrgUnit.id}}</td></tr>
+<tr><th>Name</th><td>{{singleOrgUnit.name}}</td></tr>
+<tr><th>Href</th><td>{{singleOrgUnit.href}}</td></tr>
+<tr><th>Shortname</th><td>{{singleOrgUnit.shortName}}</td></tr>
+<tr><th>Created</th><td>{{singleOrgUnit.created}}</td></tr>
+<tr><th>Coordinates</th><td>{{singleOrgUnit.coordinates}}</td></tr>
+</table>
+
+</div> 
+ <table id="unitTable" ng-if="singleOrgUnit.level != 4">
+	<tr>
+		<th>id</th>
+		<th>name</th>
+	</tr>
+  	<tr ng-repeat="x in orgUnits" ng-click="data(x)">
+  		
+    	<td style="cursor:pointer">{{ x.id }}</td>
+    	<td style="cursor:pointer">{{ x.name }}</td>
+  	</tr>
+  	<tr ng-show="x.show" ng-repeat-end="">
+    	<td colspan="3">"test"</td>
+    </tr>
+</table>
+
+<div id="map-canvas"></div> <!--  ng-show="singleOrgUnit.level == 4"></div> -->
+
+
+

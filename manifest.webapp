@@ -1,9 +1,7 @@
 {
     "version":"0.1",
     "name":"facilityRegistryApp",
-    "description":"GRH Facility Registration App."
-   },
-
+    "description":"GRH Facility Registration App.",
 
     "developer":{
     "url":"https://wiki.uio.no/mn/ifi/inf5750/index.php/GHR",
