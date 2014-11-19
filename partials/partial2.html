@@ -1,4 +1,60 @@
-<p>This view allows you to test the user settings.
+<h2>Add Organisation Unit</h2>
+<div class="container">
+<form novalidate class="form-inline" role="form" style="width:50%;float:left">
+    <div class="form-group">
+    	<b>Name:</b> <input type="text" class="form-control" ng-model="newOrgUnit.name" required/>
+    </div> 
+    <div class="form-group">
+    	<b> Shortname:</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName" required />
+    </div>
+    <br /><br />
+    
+    <div class="form-group">
+		<b>Unit code:</b> <input type="text" class="form-control" ng-model="newOrgUnit.unitCode" required/>
+	</div>
+	 <div class="form-group">
+    	<b>Parent:</b> <input type="text" class="form-control" ng-model="newOrgUnit.parent" required />
+    </div>
+	
+	</br /><br />
+	
+    
+    <div class="form-group">
+    	<b>Coordinates</b></br />
+    		
+ 	 	<div class="form-group">
+ 	 		Latitude: <input type="text" class="form-control" ng-model="newOrgUnit.latitude" />
+ 	 	</div>
+ 	 	<div class="form-group">
+ 	 		Longitude: <input type="text" class="form-control" ng-model="newOrgUnit.longitude" />
+ 	 	</div>
+ 	 	
+ 	 	<br></br>
+ 	 	
+ 	 	<button type="submit" class="btn btn-sm" ng-click="getLocation()" >Get location from browser</button>
+ 		<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow">Open map</button>
+
+ 		</div>
+  	<br></br>
+   	
+  	<div class="form-group">
+	  	<b>Active:</b> <input type="radio" ng-model="newOrgUnit.active" value="yes" />yes
+    	<input type="radio" ng-model="newOrgUnit.active" value="no" />no<br />
+   	</div>
+           
+    <br></br>
+    <button ng-click="resetForm()" class="btn btn-danger">RESET</button>
+    <button ng-click="saveOrgUnit(newOrgUnit)" class="btn btn-success">SAVE</button>
+  </form>
+  
+  <div id='map-canvas-save'></div>
+  
+</div>
+
+
+
+
+<!-- <p>This view allows you to test the user settings.
     This is like an HTTP-based database for your Javascript.
     There are system-wide and user settings. </p>
 <p>Your saved setting is: {{earlierSetting}} (click 'Refresh' below to fetch from server).</p>
@@ -10,4 +66,6 @@
     <button ng-click="saveSetting()" type="submit" class="btn btn-success">Save setting</button>
     <button ng-click="refreshSetting()" type="submit" class="btn btn-success">Refresh</button>
 </p>
+
+ -->
 

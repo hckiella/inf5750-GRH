@@ -1,19 +1,57 @@
 <h2>Organisation Units</h2>
 
-<button id="levelUp" ng-click="data(singleOrgUnit.parent); clearMap()" ng-if="singleOrgUnit.parent" type="submit">Move one level up</button>
+<button id="previousButton"  class="btn btn-sm" ng-click="clearFilter(); clearMap(); data(singleOrgUnit.parent)" ng-disabled="!singleOrgUnit.parent" type="submit">Previous level</button>
+<button id="backButton"  class="btn btn-sm" ng-click="clearFilter(); clearMap(); data(previousOrgUnit)" ng-disabled="!previousOrgUnit" type="submit">Back</button>
+<a href="#/view2"><button id="addUnitButton" class="btn btn-sm" type="submit">Add unit</button></a>
 
-<div id="info" ng-if="singleOrgUnit.level == 4">
-<table>
-<tr><th>Id</th><td>{{singleOrgUnit.id}}</td></tr>
-<tr><th>Name</th><td>{{singleOrgUnit.name}}</td></tr>
-<tr><th>Href</th><td>{{singleOrgUnit.href}}</td></tr>
-<tr><th>Shortname</th><td>{{singleOrgUnit.shortName}}</td></tr>
-<tr><th>Created</th><td>{{singleOrgUnit.created}}</td></tr>
-<tr><th>Coordinates</th><td>{{singleOrgUnit.coordinates}}</td></tr>
+<div id="filterBox">
+<br></br>
+	Filter <input ng-model="searchText">
+<br></br>	
+</div>
+
+
+
+
+<table id="unitTable-filter" ng-if="searchText && singleOrgUnit.level != 4">
+	<tr><th>Name</th>
+  		<tr ng-repeat="x in currentUnits | exact:searchText"  ng-click="data(x)">
+    <td style="cursor:pointer">{{x.name}}</td>
+  	</tr>
 </table>
 
-</div> 
- <table id="unitTable" ng-if="singleOrgUnit.level != 4">
+
+<div id="info" ng-if="singleOrgUnit.level == 4">
+	<table>
+		<tr>
+			<th>Id</th>
+			<td>{{singleOrgUnit.id}}</td>
+		</tr>
+		<tr>
+			<th>Name</th>
+			<td>{{singleOrgUnit.name}}</td>
+		</tr>
+		<tr>
+			<th>Href</th>
+			<td>{{singleOrgUnit.href}}</td>
+		</tr>
+		<tr>
+			<th>Shortname</th>
+			<td>{{singleOrgUnit.shortName}}</td>
+		</tr>
+		<tr>
+			<th>Created</th>
+			<td>{{singleOrgUnit.created}}</td>
+		</tr>
+		<tr>
+			<th>Coordinates</th>
+			<td>{{singleOrgUnit.coordinates}}</td>
+		</tr>
+	</table>
+</div>
+
+
+<table id="unitTable" ng-if="singleOrgUnit.level != 4 && !searchText">
 	<tr>
 		<th>id</th>
 		<th>name</th>

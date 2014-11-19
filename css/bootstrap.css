@@ -6811,19 +6811,22 @@ td.visible-print {
 	width: 300px;
 }
 
-#levelUp {
+#filterBox {
+	float: left;
+	clear: both;
+}
+
+#backButton {
 	float: left;
 	clear: left;
 	margin-right: 2px;
-	margin-left: 2px;
-	
-	
+	margin-left: 2px;	
 }
 
 #unitTable {
 	margin-left: 2px;
 	margin-right: 2px;
-	width: 300px;
+	width: 30%;
 	float: left;
 	clear: left;
 }
@@ -6835,13 +6838,38 @@ td.visible-print {
 	background-color: #fff;
 }
 
+#unitTable-filter {
+	margin-left: 2px;
+	margin-right: 2px;
+	width: 30%;
+	float: left;
+	clear: left;
+}
+
+#unitTable-filter tr:nth-child(even) {
+	background-color: #f8f8f8;
+}
+#unitTable-filter tr:nth-child(odd) {
+	background-color: #fff;
+}
+
+#map-canvas-save {
+	height: 400px;
+	/*padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 2px;*/
+	width: 50%;
+	float: right;
+}
+
 #map-canvas {
 	height: 400px;
 	/*padding-right: 15px;
 	padding-left: 15px;
 	margin-right: auto;
 	margin-left: 2px;*/
-	width: 700px;
+	width: 60%;
 	float: right;
 }
 

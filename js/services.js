@@ -11,17 +11,27 @@ var myAppServices = angular.module('myApp.services', ['ngResource']);
 
 myAppServices.factory("OrgUnits", ['$http', function($http) {
 	var OrgUnits = {};
-	
-	OrgUnits.getOrgUnits = function() {
-		
-		return $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK&level=2");
+			
+	OrgUnits.getOrgUnits = function() {		
+		return $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK&level=2&fields=id,name,href");
 	}
+	
+	OrgUnits.getAllOrgUnits = function() {
+		return $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK&fields=name,href&paging=false");
+	}
+	
 	OrgUnits.getOrgUnitsByLevel = function(level) {
-		return $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK" + "&level="+level);
+		return $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK" + "&level=" + level + multipleArg);
 	}
 	OrgUnits.getSingleOrgUnit = function(href) {
 		return $http.jsonp(href+".jsonp?callback=JSON_CALLBACK");
 	}
+	
+	OrgUnits.saveOrgUnit = function(newOrgUnit) {
+		console.log(newOrgUnit.name);
+		return null;
+	}
+	
 	return OrgUnits;
 }]);
 

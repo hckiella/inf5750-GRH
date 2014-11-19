@@ -13,33 +13,31 @@
     See: https://docs.angularjs.org/api/ngResource/service/$resource for info
 */
 
-function orgUnitController($scope,$http) {
-	  $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK")
-	  .success(function(response) {$scope.units = response.organisationUnits;
-	  });
-	  $scope.info = "test";
-	  $scope.data = function(x) {
-		  $http.jsonp(x.href+ ".jsonp?callback=JSON_CALLBACK")
-		  .success(function(response) {$scope.details = response;
-		  console.log(response);
-		  });
-		  $scope.info = x;
-	  }
-	}
+
 angular.module('myApp.controllers', []).
     controller('MyCtrl1', ['$scope', 'OrgUnits', function ($scope, OrgUnits) {
     	
     	var markers = new Array();
     	var srLatLng = new google.maps.LatLng(8.460555,-11.779889);
-    			
+    	
+    	getAllOrgUnits();
+    	getFilterInput();
     	getOrgUnits();
+    	
+    	//if($scope.searchText === null)
+    		
+    	
     	showMap();
-    	    	    	
+    	    	    	    	
     	$scope.getOrgUnitsByLevel = function(level) {
         	getOrgUnitsByLevel(level);
         }
     	$scope.data = function(orgUnit) {
     		getSingleOrgUnit(orgUnit.href);
+    	}
+    	
+    	$scope.clearFilter = function() {
+    		$scope.searchText = null;
     	}
     	
     	$scope.clearMap = function() {
@@ -51,12 +49,24 @@ angular.module('myApp.controllers', []).
         	
             $scope.map.setZoom(7);
             $scope.map.setCenter(srLatLng);
-        }
-        
+        }       
+    	
+    	function getFilterInput() {
+    		$scope.searchText = document.getElementById('searchText');
+        	console.log($scope.searchText);        	
+    	}
     	
         function getOrgUnits() {
         	OrgUnits.getOrgUnits().then(function(response) {
         		$scope.orgUnits = response.data.organisationUnits;
+        	});
+        }
+        
+        function getAllOrgUnits() {
+        	OrgUnits.getAllOrgUnits().then(function(response) {
+        		$scope.allUnits = response.data.organisationUnits;
+        		$scope.currentUnits = $scope.allUnits.slice();
+        		console.log(response.data);
         	});
         }
         
@@ -67,10 +77,25 @@ angular.module('myApp.controllers', []).
         }
         
         function getSingleOrgUnit(href) {
+        	console.log(href);
         	OrgUnits.getSingleOrgUnit(href).then(function(response) {
-        		$scope.previousOrgUnit = $scope.singleOrgUnit;
+        		       		
+        		if($scope.singleOrgUnit == null) {
+        			
+        		}
+        		
+        		else {
+        				if($scope.singleOrgUnit.level !=4) {
+        					$scope.previousOrgUnit = $scope.singleOrgUnit;
+        				}
+        				else {
+        					$scope.previousOrgUnit = $scope.singleOrgUnit.parent.parent;
+        				}
+        		}
+        		
         		$scope.singleOrgUnit = response.data;
         		$scope.orgUnits = response.data.children;
+        		$scope.clearFilter();
         		        		
         		if($scope.singleOrgUnit.level && $scope.singleOrgUnit.level == 4) {
                 	if($scope.singleOrgUnit.coordinates)
@@ -103,7 +128,57 @@ angular.module('myApp.controllers', []).
         }       
         
     }])
-    .controller('MyCtrl2', ['$scope', 'UserSettingService', function ($scope, UserSettingService) {
+    .controller('MyCtrl2', ['$scope', 'OrgUnits', function ($scope, OrgUnits) {   
+    	$scope.newOrgUnit = {};
+    	
+    	var mapShown = false;
+    	
+    	$scope.showMap = function() {
+    		if(!mapShown) {
+    			var srLatLng = new google.maps.LatLng(8.460555,-11.779889);
+    		
+    			var mapOptions = {
+    					zoom: 7,
+    					center: srLatLng,
+    					mapTypeId: google.maps.MapTypeId.TERRAIN
+    			}        
+    			$scope.map = new google.maps.Map(document.getElementById('map-canvas-save'), mapOptions);
+    			mapShown = true;
+    		}    		
+    	}
+    	
+    	$scope.saveOrgUnit = function(newOrgUnit) {
+    		OrgUnits.saveOrgUnit(newOrgUnit);
+    	}
+    	
+    	$scope.getLocation = function() {
+    		if (Modernizr.geolocation) {
+    			navigator.geolocation
+    					.getCurrentPosition(locationFound, locationError);
+    		} else {
+    			alert("Error retrieving location (Modernizr.geolocation not present)");
+    		}
+    	}
+
+    	function locationFound(position) {
+    		$scope.$apply(function() {
+    			$scope.newOrgUnit.latitude = position.coords.latitude;
+        		$scope.newOrgUnit.longitude = position.coords.longitude;
+    		});
+    	}
+
+    	function locationError(error) {
+    		alert("Undefined error while retrieving location");
+    	}
+    	
+    	$scope.resetForm = function() {
+    		$scope.newOrgUnit = {};		
+    	}
+    	
+
+
+    }])
+    .controller('MyCtrl9', ['$scope', 'AddUnitService', function ($scope, AddUnitService) {
 
         $scope.userSetting = UserSettingService.get(function () {
             console.log("$scope.userSetting="+JSON.stringify($scope.userSetting));
