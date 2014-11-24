@@ -43,11 +43,22 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 	}
 	
 	OrgUnits.deleteOrgUnit = function(orgUnit) {
-		return $http.del("http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id).success(function(response) {
+		if(orgUnit == null)
+			return;
+		
+		var url = "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id;
+		console.log(url);
+		return;
+		/*
+		console.log(url);
+		return $http({
+			url: "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id,
+			method: "DELETE"
+		}).success(function(response) {
 			OrgUnits.lastStatus = response.status;
 			console.log(response);			
-		});
-		
+		});		
+		*/
 	}
 		
 		
@@ -64,6 +75,48 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 	
 	return OrgUnits;
 }]);
+
+
+myAppServices.factory("MapService", function ($resource) {
+    var MapService = {};
+    var markers = new Array();
+    var srLatLng = new google.maps.LatLng(8.460555,-11.779889);
+	
+	MapService.clearMap = function() {
+		
+    	for(var i = 0; i < markers.length; i++) {
+    		markers[i].setMap(null);
+    		markers.splice(i, 1);        	
+    	}
+    	
+        MapService.map.setZoom(7);
+        MapService.map.setCenter(srLatLng);
+	}
+	
+    MapService.showMap = function(mapName) {
+    	var mapOptions = {
+    		zoom: 7,
+            center: srLatLng,
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+        }        
+    	MapService.map = new google.maps.Map(document.getElementById(mapName), mapOptions);
+    	
+    }
+    
+    MapService.showSingleUnit = function(orgUnit) {    	
+    	var coordinates = JSON.parse(orgUnit.coordinates);
+    	var myLatlng = new google.maps.LatLng(coordinates[1], coordinates[0]);
+    	var marker = new google.maps.Marker({
+    		position : myLatlng,
+    		map : MapService.map,
+    		title : orgUnit.name
+    	});
+    	markers.push(marker);
+    }
+    
+    return MapService;
+});
+
 
 myAppServices.factory("MeService", function ($resource) {
     return $resource(

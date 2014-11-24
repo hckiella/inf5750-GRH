@@ -7,19 +7,23 @@
 	</p>
 </div>
 
-<div id="currentUnit">
-	<p>
-		<b>Current unit: </b>
-		<b ng-show="singleOrgUnit"> {{singleOrgUnit.name}}</b>
-		<b ng-show="!singleOrgUnit"> None</b>
-		<button id="deleteButton"  class="btn btn-sm" ng-click="deleteOrgUnit(singleOrgUnit)" ng-disabled="!singleOrgUnit" type="submit">Delete</button>
-		
-	</p>
-</div>
+
 
 <div id="filterBox">
 	Filter <input ng-model="searchText">
 <br></br>	
+</div>
+
+<div id="currentUnit" style="float:left;clear:left">
+	<p>
+		<b>Current unit: </b>
+		<b ng-show="singleOrgUnit"> {{singleOrgUnit.name}}</b>
+		<b ng-show="!singleOrgUnit"> None</b>		
+	</p>
+	<p>
+		<button id="deleteButton"  class="btn btn-sm" ng-click="deleteOrgUnit(singleOrgUnit)" ng-disabled="!singleOrgUnit || singleOrgUnit.level == 1" type="submit">Delete</button>
+		<button id="showInfoButton"  class="btn btn-sm" ng-click="showInfo(singleOrgUnit)" ng-disabled="!singleOrgUnit" type="submit">Show info</button>
+	</p>
 </div>
 
 

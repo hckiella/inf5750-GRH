@@ -15,7 +15,7 @@
 
 
 angular.module('myApp.controllers', []).
-    controller('MyCtrl1', ['$scope', 'OrgUnits', function ($scope, OrgUnits) {
+    controller('MyCtrl1', ['$scope', 'OrgUnits', 'MapService', function ($scope, OrgUnits, MapService) {
     	$scope.currentUnit = null;
     	
     	var markers = new Array();
@@ -26,10 +26,10 @@ angular.module('myApp.controllers', []).
     	getOrgUnits();
     	
     	//if($scope.searchText === null)
-    		
+    		    	
+    	MapService.showMap("map-canvas");
+    	//showMap();
     	
-    	showMap();
-    	    	    	    	
     	$scope.getOrgUnitsByLevel = function(level) {
         	getOrgUnitsByLevel(level);
         }
@@ -42,14 +42,14 @@ angular.module('myApp.controllers', []).
     	}
     	
     	$scope.clearMap = function() {
-    		
-        	for(var i = 0; i < markers.length; i++) {
+    		MapService.clearMap();
+        	/*for(var i = 0; i < markers.length; i++) {
         		markers[i].setMap(null);
         		markers.splice(i, 1);        	
         	}
         	
             $scope.map.setZoom(7);
-            $scope.map.setCenter(srLatLng);
+            $scope.map.setCenter(srLatLng);*/
         }       
     	
     	function getFilterInput() {
@@ -100,8 +100,10 @@ angular.module('myApp.controllers', []).
         		$scope.clearFilter();
         		        		
         		if($scope.singleOrgUnit.level && $scope.singleOrgUnit.level == 4) {
-                	if($scope.singleOrgUnit.coordinates)
-                		showSingleUnit();
+                	if($scope.singleOrgUnit.coordinates) {
+                		MapService.showSingleUnit($scope.singleOrgUnit);
+                		//showSingleUnit();
+                	}
         		}
          		console.log(response.data);  
         		
@@ -116,10 +118,11 @@ angular.module('myApp.controllers', []).
         		else {
         			alert("Error while trying to delete unit")
         		}
-        	});        	
+        	});
+        	$scope.singleOrgUnit = null;
         }
               
-        function showMap() {
+        /*function showMap() {
         	var mapOptions = {
         		zoom: 7,
                 center: srLatLng,
@@ -139,18 +142,16 @@ angular.module('myApp.controllers', []).
         	});
         	markers.push(marker);
         }       
-        
+        */
     }])
-    .controller('MyCtrl2', ['$scope', 'OrgUnits', function ($scope, OrgUnits) {
+    .controller('MyCtrl2', ['$scope', 'OrgUnits', 'MapService', function ($scope, OrgUnits, MapService) {
     	$scope.newOrgUnit = {};    	
     	var mapShown = false;
     	
     	$scope.parentSet = false;
     	    
     	OrgUnits.getOrgUnits().then(function(response) {
-    		$scope.orgUnits = response.data.organisationUnits;
-    		
-    		
+    		$scope.orgUnits = response.data.organisationUnits;    		
     	});
     	
     	
@@ -170,20 +171,14 @@ angular.module('myApp.controllers', []).
           	});
           }
     	
-    	
-    	
     	$scope.showMap = function() {
-    		if(!mapShown) {
-    			var srLatLng = new google.maps.LatLng(8.460555,-11.779889);
-    		
-    			var mapOptions = {
-    					zoom: 7,
-    					center: srLatLng,
-    					mapTypeId: google.maps.MapTypeId.TERRAIN
-    			}        
-    			$scope.map = new google.maps.Map(document.getElementById('map-canvas-save'), mapOptions);
-    			mapShown = true;
-    		}    		
+    		MapService.showMap("map-canvas-save");
+    		mapShown = true;
+    	}
+    	
+    	$scope.closeMap = function() {
+    		MapService.clearMap();
+    		mapShown = false;
     	}
     	
     	$scope.saveOrgUnit = function(newOrgUnit) {
