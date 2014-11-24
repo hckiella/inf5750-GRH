@@ -21,16 +21,46 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 	}
 	
 	OrgUnits.getOrgUnitsByLevel = function(level) {
-		return $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK" + "&level=" + level + multipleArg);
+		return $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK" + "&level=" + level);
 	}
 	OrgUnits.getSingleOrgUnit = function(href) {
 		return $http.jsonp(href+".jsonp?callback=JSON_CALLBACK");
 	}
 	
 	OrgUnits.saveOrgUnit = function(newOrgUnit) {
-		console.log(newOrgUnit.name);
-		return null;
+		return $http({
+			url: "http://inf5750-6.uio.no/api/organisationUnits",
+			dataType: "json",
+			method: "POST",
+			data: JSON.stringify(newOrgUnit),	
+			headers: {
+				"Content-Type": "application/json"
+			}
+		}).success(function(response) {
+			OrgUnits.lastStatus = response.status;
+			console.log(response);
+		});
 	}
+	
+	OrgUnits.deleteOrgUnit = function(orgUnit) {
+		return $http.del("http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id).success(function(response) {
+			OrgUnits.lastStatus = response.status;
+			console.log(response);			
+		});
+		
+	}
+		
+		
+		
+		
+		
+		/*.post(, newOrgUnit).
+			success(function(response) {
+				console.log(response);
+			});
+		//return $http.post("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK" + "&level=" + level + multipleArg);
+		//
+	}*/
 	
 	return OrgUnits;
 }]);

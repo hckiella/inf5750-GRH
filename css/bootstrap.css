@@ -6805,10 +6805,9 @@ td.visible-print {
 }
 
 #info {
-	margin-right: 10;
 	float: left;
+	width: 20%;
 	clear: left;
-	width: 300px;
 }
 
 #filterBox {
@@ -6826,7 +6825,7 @@ td.visible-print {
 #unitTable {
 	margin-left: 2px;
 	margin-right: 2px;
-	width: 30%;
+	width: 15%;
 	float: left;
 	clear: left;
 }

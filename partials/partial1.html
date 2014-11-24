@@ -1,11 +1,23 @@
 <h2>Organisation Units</h2>
+<div>
+	<p>
+		<button id="previousButton"  class="btn btn-sm" ng-click="clearFilter(); clearMap(); data(singleOrgUnit.parent)" ng-disabled="!singleOrgUnit.parent" type="submit">Previous level</button>
+		<button id="backButton"  class="btn btn-sm" ng-click="clearFilter(); clearMap(); data(previousOrgUnit)" ng-disabled="!previousOrgUnit" type="submit">Back</button>
+		<a href="#/view2"><button id="addUnitButton" class="btn btn-sm" type="submit">Add unit</button></a>
+	</p>
+</div>
 
-<button id="previousButton"  class="btn btn-sm" ng-click="clearFilter(); clearMap(); data(singleOrgUnit.parent)" ng-disabled="!singleOrgUnit.parent" type="submit">Previous level</button>
-<button id="backButton"  class="btn btn-sm" ng-click="clearFilter(); clearMap(); data(previousOrgUnit)" ng-disabled="!previousOrgUnit" type="submit">Back</button>
-<a href="#/view2"><button id="addUnitButton" class="btn btn-sm" type="submit">Add unit</button></a>
+<div id="currentUnit">
+	<p>
+		<b>Current unit: </b>
+		<b ng-show="singleOrgUnit"> {{singleOrgUnit.name}}</b>
+		<b ng-show="!singleOrgUnit"> None</b>
+		<button id="deleteButton"  class="btn btn-sm" ng-click="deleteOrgUnit(singleOrgUnit)" ng-disabled="!singleOrgUnit" type="submit">Delete</button>
+		
+	</p>
+</div>
 
 <div id="filterBox">
-<br></br>
 	Filter <input ng-model="searchText">
 <br></br>	
 </div>
@@ -21,50 +33,56 @@
 </table>
 
 
-<div id="info" ng-if="singleOrgUnit.level == 4">
-	<table>
-		<tr>
-			<th>Id</th>
-			<td>{{singleOrgUnit.id}}</td>
-		</tr>
-		<tr>
-			<th>Name</th>
-			<td>{{singleOrgUnit.name}}</td>
-		</tr>
-		<tr>
-			<th>Href</th>
-			<td>{{singleOrgUnit.href}}</td>
-		</tr>
-		<tr>
-			<th>Shortname</th>
-			<td>{{singleOrgUnit.shortName}}</td>
-		</tr>
-		<tr>
-			<th>Created</th>
-			<td>{{singleOrgUnit.created}}</td>
-		</tr>
-		<tr>
-			<th>Coordinates</th>
-			<td>{{singleOrgUnit.coordinates}}</td>
-		</tr>
-	</table>
-</div>
 
 
 <table id="unitTable" ng-if="singleOrgUnit.level != 4 && !searchText">
 	<tr>
-		<th>id</th>
 		<th>name</th>
 	</tr>
   	<tr ng-repeat="x in orgUnits" ng-click="data(x)">
   		
-    	<td style="cursor:pointer">{{ x.id }}</td>
     	<td style="cursor:pointer">{{ x.name }}</td>
   	</tr>
   	<tr ng-show="x.show" ng-repeat-end="">
     	<td colspan="3">"test"</td>
     </tr>
 </table>
+
+
+<div id="info" ng-if="singleOrgUnit.level == 4">
+	<table class="table-striped">
+		<tr>
+			<th>Name</th>
+			<td>{{singleOrgUnit.name}}</td>
+		</tr>
+		<!-- 
+		<tr>
+			<th>Href</th>
+			<td>{{singleOrgUnit.href}}</td>
+		</tr>
+		 -->
+		<tr>
+			<th>Shortname</th>
+			<td>{{singleOrgUnit.shortName}}</td>
+		</tr>
+		
+		<tr>
+			<th>Id</th>
+			<td>{{singleOrgUnit.id}}</td>
+		</tr>
+	
+		<!-- 
+		<tr>
+			<th>Created</th>
+			<td>{{singleOrgUnit.created}}</td>
+		</tr>
+		 -->
+		<tr>
+			<th>Coordinates</th>
+			<td>{{singleOrgUnit.coordinates}}</td>
+		</tr>
+	</table>
+</div>
 
 <div id="map-canvas"></div> <!--  ng-show="singleOrgUnit.level == 4"></div> -->
 

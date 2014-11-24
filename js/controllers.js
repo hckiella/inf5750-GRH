@@ -16,6 +16,7 @@
 
 angular.module('myApp.controllers', []).
     controller('MyCtrl1', ['$scope', 'OrgUnits', function ($scope, OrgUnits) {
+    	$scope.currentUnit = null;
     	
     	var markers = new Array();
     	var srLatLng = new google.maps.LatLng(8.460555,-11.779889);
@@ -94,7 +95,8 @@ angular.module('myApp.controllers', []).
         		}
         		
         		$scope.singleOrgUnit = response.data;
-        		$scope.orgUnits = response.data.children;
+        		if($scope.singleOrgUnit.level != 4)
+        			$scope.orgUnits = response.data.children;
         		$scope.clearFilter();
         		        		
         		if($scope.singleOrgUnit.level && $scope.singleOrgUnit.level == 4) {
@@ -104,6 +106,17 @@ angular.module('myApp.controllers', []).
          		console.log(response.data);  
         		
         	});
+        }
+        
+        $scope.deleteOrgUnit = function(orgUnit) {
+        	OrgUnits.deleteOrgUnit(orgUnit).then(function(){
+        		if(OrgUnits.lastStatus == "SUCCESS") {
+        			alert("Unit successfully deleted")
+        		}
+        		else {
+        			alert("Error while trying to delete unit")
+        		}
+        	});        	
         }
               
         function showMap() {
@@ -128,10 +141,36 @@ angular.module('myApp.controllers', []).
         }       
         
     }])
-    .controller('MyCtrl2', ['$scope', 'OrgUnits', function ($scope, OrgUnits) {   
-    	$scope.newOrgUnit = {};
-    	
+    .controller('MyCtrl2', ['$scope', 'OrgUnits', function ($scope, OrgUnits) {
+    	$scope.newOrgUnit = {};    	
     	var mapShown = false;
+    	
+    	$scope.parentSet = false;
+    	    
+    	OrgUnits.getOrgUnits().then(function(response) {
+    		$scope.orgUnits = response.data.organisationUnits;
+    		
+    		
+    	});
+    	
+    	
+    	$scope.setParent = function(parent) {
+    		$scope.parentSet = true;
+    	}
+    	
+    	$scope.resetParent = function() {
+    		$scope.parentSet = false;
+    		
+    	}
+    	
+    	$scope.getSingleOrgUnit = function(href) {
+    		OrgUnits.getSingleOrgUnit(href).then(function(response) {
+    			$scope.orgUnits = response.data.children;
+    			$scope.newOrgUnit.parent = response.data;
+          	});
+          }
+    	
+    	
     	
     	$scope.showMap = function() {
     		if(!mapShown) {
@@ -148,7 +187,15 @@ angular.module('myApp.controllers', []).
     	}
     	
     	$scope.saveOrgUnit = function(newOrgUnit) {
-    		OrgUnits.saveOrgUnit(newOrgUnit);
+    		OrgUnits.saveOrgUnit(newOrgUnit).then(function() {
+    			if(OrgUnits.lastStatus == "SUCCESS") {
+        			alert("Unit successfully saved ")
+        		}
+        		else {
+        			alert("Error while trying to save unit")
+        		}
+        		$scope.newOrgUnit = {};        			
+    		});    		
     	}
     	
     	$scope.getLocation = function() {
