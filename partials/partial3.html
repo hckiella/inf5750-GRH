@@ -1,4 +1,128 @@
-<p> Map demo using Leaflet (but no DHIS2 API connection):</p>
+<div>
+<div class="container" style="width:100%;float:left">
+	<div>
+		<h2 ng-show="currOrgUnit"><!-- Currently viewing --> {{currOrgUnit.name}}</h2>
+		<h2 ng-show="!currOrgUnit">No unit chosen</h2>
+
+		<p>
+			<a href="#/view1"><button id="backButton2" class="btn btn-sm" type="submit" ng-disabled="edit">Back</button></a>
+			<button id="editButton"  class="btn btn-sm" ng-click="editOrgUnit()" ng-disabled="!currOrgUnit || edit" type="submit">Edit</button>
+			<button id="deleteButton"  class="btn btn-danger btn-sm" ng-click="deleteOrgUnit(currOrgUnit)" ng-disabled="!currOrgUnit" type="submit">Delete</button>
+			<br></br>
+		
+		</p>
+	</div>
+		
+	<div id="infoBlock" style="align:left;clear:both" ng-show="!edit">
+		<p>Name: {{currOrgUnit.name}}</p>
+		<p>ShortName: {{currOrgUnit.shortName}}</p>
+		<p>Id: {{currOrgUnit.id}}</p>
+		<p>Level: {{currOrgUnit.level}}</p>
+		<p>Opening date: {{currOrgUnit.openingDate}}</p>
+		<p>Last updated: {{currOrgUnit.lastUpdated}}</p>
+		<p>Unit code: {{currOrgUnit.code}}</p>
+		<p>Coordinates:</p>
+		<p>Active:
+		 <id="" ng-if="currOrgUnit.active">yes</>
+		 <id="" ng-if="!currOrgUnit.active">no</>		 
+		</p>
+		<p>Display name: {{currOrgUnit.displayName}}</p>
+		<p><b>Parent:</b> {{currOrgUnit.parent.name}}</p>
+
+
+		<b>Unit groups</b>
+		<div id="groupsTable">
+			<table>
+				<tr ng-repeat="x in currOrgUnit.organisationUnitGroups">  		
+    				<td>{{ x.name }}</td>
+  				</tr>
+			</table>
+		</div>
+		
+		<br></br>
+		
+		<b>Children</b>
+		<div id="childrenTable">
+			<table>
+				<tr ng-repeat="x in currOrgUnit.children" ng-click="data(x)">  		
+    				<td>{{ x.name }}</td>
+  				</tr>
+			</table>
+		</div>
+		
+	</div>
+	
+	<div id="editBlock" style="float:left;clear:both" ng-show="edit">
+		<form novalidate class="form-inline" role="form" style="float:left">
+    	
+	    	<div class="form-group">
+	    		<b>Name:</b> <input type="text" class="form-control" ng-model="newOrgUnit.name" required/>
+	    	</div> 	    	
+	    	<div class="form-group">
+		    	<b> Shortname:</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName" required />
+		    </div>
+		    <br /><br />
+		    
+		    <div class="form-group">
+				<b>Unit code:</b> <input type="text" class="form-control" ng-model="newOrgUnit.code" required/>
+			</div>
+			 <div class="form-group">
+		    	<b>Parent:</b> <input type="text" class="form-control" ng-model="newOrgUnit.parent.name" required /> 	
+		    </div>		    
+		    <br /><br />
+		    
+		    <div class="form-group">
+		          <label for="UnitTypeSelector">Unit type:</label>
+		          <select class="form-control" id="UnitTypeSelector">
+		            <option>Placeholder1</option>
+		            <option>Placeholder2</option>
+		            <option>Placeholder3</option>
+		            <option>Placeholder4</option>
+		          </select>
+		    </div>			
+			</br /><br />
+			
+			 <div class="form-group">
+			 	<b>Opening date:</b> <input type="text" class="form-control" ng-model="newOrgUnit.openingDate" required/>
+		     </div>			
+			</br /><br />
+			
+		    
+		    <div class="form-group">
+		    	<b>Coordinates</b></br />		    		
+		 	 	<div class="form-group">
+		 	 		Latitude: <input type="text" class="form-control" ng-model="newOrgUnit.latitude" />
+		 	 	</div>
+		 	 	<div class="form-group">
+		 	 		Longitude: <input type="text" class="form-control" ng-model="newOrgUnit.longitude" />
+		 	 	</div>		 	 	
+		 	 	<br></br>
+		 	 	
+		 	 	<button type="submit" class="btn btn-sm" ng-click="getLocation()" >Get location from browser</button>
+		 		<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow">Open map</button>
+		
+		 		</div>
+		  	<br></br>
+		   	
+		  	<div class="form-group">
+			  	<b>Active:</b> <input type="radio" ng-model="newOrgUnit.active" value="true" />yes
+		    	<input type="radio" ng-model="newOrgUnit.active" value="false" />no<br />
+		   	</div>
+		           
+		    <br></br>
+		    <button ng-click="cancelUpdate()" class="btn btn-danger btn-sm">Cancel</button>
+		    <button ng-click="updateOrgUnit()" class="btn btn-success btn-sm">Save</button>
+	 	 </form>
+		</div>
+	
+	
+	
+		<div id='map-canvas-info'></div>
+	</div>
+
+</div>
+ 
+<!-- <p> Map demo using Leaflet (but no DHIS2 API connection):</p>
 <p>
     Long: <input type="number" ng-model="location.lng">
     Lat: <input type="number" ng-model="location.lat">
@@ -20,3 +144,4 @@
         href="http://tombatossals.github.io/angular-leaflet-directive/#!/">this link</a> for more info on Leaflet in
     Angular. This code is cut from the examples on those pages.
 </p>
+ -->

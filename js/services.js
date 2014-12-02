@@ -24,7 +24,9 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 		return $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK" + "&level=" + level);
 	}
 	OrgUnits.getSingleOrgUnit = function(href) {
-		return $http.jsonp(href+".jsonp?callback=JSON_CALLBACK");
+		return $http.jsonp(href+".jsonp?callback=JSON_CALLBACK").success(function(response) {
+			OrgUnits.currOrgUnit = response;
+		});
 	}
 	
 	OrgUnits.saveOrgUnit = function(newOrgUnit) {
@@ -42,36 +44,32 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 		});
 	}
 	
-	OrgUnits.deleteOrgUnit = function(orgUnit) {
-		if(orgUnit == null)
-			return;
-		
+	OrgUnits.deleteOrgUnit = function(orgUnit) {		
 		var url = "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id;
 		console.log(url);
-		return;
-		/*
-		console.log(url);
-		return $http({
+		
+		for(var i = 0; i < orgUnit.organisationUnitGroups.length; i++) {
+			console.log(orgUnit.organisationUnitGroups[i].name + " " + orgUnit.organisationUnitGroups[i].id);
+		}
+		
+		console.log("Parent: " + orgUnit.parent.id);
+		
+		/*return $http({
 			url: "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id,
 			method: "DELETE"
 		}).success(function(response) {
-			OrgUnits.lastStatus = response.status;
-			console.log(response);			
-		});		
-		*/
+			console.log("success");			
+		});*/		
 	}
-		
-		
-		
-		
-		
-		/*.post(, newOrgUnit).
-			success(function(response) {
-				console.log(response);
-			});
-		//return $http.post("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK" + "&level=" + level + multipleArg);
-		//
-	}*/
+	
+	OrgUnits.apiDelete = function(url) {
+		return $http({
+			url: url,
+			method: "DELETE"
+		}).success(function(response) {
+			console.log("success");			
+		});
+	}
 	
 	return OrgUnits;
 }]);
@@ -83,10 +81,9 @@ myAppServices.factory("MapService", function ($resource) {
     var srLatLng = new google.maps.LatLng(8.460555,-11.779889);
 	
 	MapService.clearMap = function() {
-		
-    	for(var i = 0; i < markers.length; i++) {
-    		markers[i].setMap(null);
-    		markers.splice(i, 1);        	
+    	while(markers.length > 0) {
+    		markers[0].setMap(null);
+    		markers.splice(0, 1);
     	}
     	
         MapService.map.setZoom(7);
@@ -112,6 +109,36 @@ myAppServices.factory("MapService", function ($resource) {
     		title : orgUnit.name
     	});
     	markers.push(marker);
+    }
+    
+    MapService.showCoordinates = function(orgUnit) {
+		if(markers.length > 0) {
+			MapService.clearMap();
+		}
+
+		var markerBounds = new google.maps.LatLngBounds();
+
+		var stringCoords, arrCoords, resCoords;
+		arrCoords = orgUnit.coordinates.split("],[");
+		for (var j = 0; j < arrCoords.length; j++) {
+			resCoords = arrCoords[j].split(",");
+
+			for (var k = 0; k < 2; k++) {
+				resCoords[k] = resCoords[k].replace(/((\[)|(\]))/g, "")
+			}
+
+			var myLatlng = new google.maps.LatLng(resCoords[1], resCoords[0]);
+			var marker = new google.maps.Marker({position: myLatlng, map: MapService.map, title: orgUnit.name + "-" + j});
+
+			markers.push(marker);
+
+			markerBounds.extend(myLatlng);
+		}
+		MapService.map.fitBounds(markerBounds);
+	}
+    
+    MapService.addMarker = function(orgUnit) {
+    	console.log(MapService.addMarker);
     }
     
     return MapService;

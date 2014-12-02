@@ -4,6 +4,7 @@
 <p>Choose parent
 <button id="previousButton" class="btn btn-sm" ng-click="getSingleOrgUnit(newOrgUnit.parent.parent.href)" ng-disabled="!newOrgUnit.parent.level == 1 || !newOrgUnit.parent" type="submit">Previous level</button>
 <button ng-click="setParent(newOrgUnit.parent)" class="btn btn-sm">Done</button>
+<a href="#/view1"><button id="cancelButton" class="btn btn-sm" type="submit">Cancel</button></a>
 </p>
 
 <p>
@@ -12,14 +13,11 @@
 	<b ng-show="!newOrgUnit.parent"> None</b>
 </p>
 
-<table id="tempTable"> <!-- style="margin-left: 30%; margin-right:30%; width:50%" -->
+<table id="parentTable">
   	<tr ng-repeat="x in orgUnits" ng-click="getSingleOrgUnit(x.href)">
   		
     	<td style="cursor:pointer">{{ x.name }}</td>
   	</tr>
-  	<tr ng-show="x.show" ng-repeat-end="">
-    	<td colspan="3">"test"</td>
-    </tr>
 </table>
 
 <b ng-if="newOrgUnit.parent.level == 4">No children</b>
@@ -32,6 +30,7 @@
 <div class="container"  ng-show="parentSet">
 <b>Chosen parent: {{newOrgUnit.parent.name}}</b>
  <button ng-click="resetParent()" class="btn btn-sm">Change</button>   
+ <a href="#/view1"><button id="cancelButton" class="btn btn-sm" type="submit">Cancel</button></a>
 <br></br>
 <form novalidate class="form-inline" role="form" style="width:50%;float:left">
     <div class="form-group">
@@ -61,6 +60,11 @@
           </select>
      </div>
 	
+	</br /><br />
+				
+	<div class="form-group">
+		<b>Opening date:</b> <input type="text" class="form-control" ng-model="newOrgUnit.openingDate" required/>
+	</div>			
 	</br /><br />
 	
     

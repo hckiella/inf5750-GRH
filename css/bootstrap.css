@@ -6815,9 +6815,16 @@ td.visible-print {
 	clear: both;
 }
 
-#backButton {
+#backButton1 {
 	float: left;
 	clear: left;
+	margin-right: 2px;
+	margin-left: 2px;	
+}
+
+#backButton2 {
+	float: left;
+	clear: both;
 	margin-right: 2px;
 	margin-left: 2px;	
 }
@@ -6826,6 +6833,8 @@ td.visible-print {
 	margin-left: 2px;
 	margin-right: 2px;
 	width: 15%;
+	max-height: 400px;
+	overflow: auto;
 	float: left;
 	clear: left;
 }
@@ -6852,15 +6861,33 @@ td.visible-print {
 	background-color: #fff;
 }
 
-#map-canvas-save {
-	height: 400px;
-	/*padding-right: 15px;
-	padding-left: 15px;
-	margin-right: auto;
-	margin-left: 2px;*/
-	width: 50%;
-	float: right;
+#parentTable {
+	max-height: 400px;
+	overflow: auto;
+/*style="margin-left: 30%;
+ margin-right:30%;
+ width:50%
+ */	
 }
+#childrenTable {
+	max-height: 150px;
+	width: 200px;
+	overflow: auto;
+	/*border: 1px;
+	border-style: solid;
+	border-color: #f8f8f7;
+	background-color: #f8f8f8*/
+}
+
+#childrenTable-filter tr:nth-child(even) {
+	background-color: #f8f8f8;
+}
+#childrenTable-filter tr:nth-child(odd) {
+	background-color: #fff;
+}
+
+ 
+
 
 #map-canvas {
 	height: 400px;
@@ -6871,6 +6898,28 @@ td.visible-print {
 	width: 60%;
 	float: right;
 }
+
+#map-canvas-save {
+	height: 400px;
+	/*padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 2px;*/
+	width: 50%;
+	float: right;
+}
+
+
+#map-canvas-show {
+	height: 400px;
+	/*padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 2px;*/
+	width: 50%;
+	float: right;
+}
+
 
 html, body {
 	height: 100%;
