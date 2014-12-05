@@ -181,7 +181,7 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 
 		var markerBounds = new google.maps.LatLngBounds();
 
-		var stringCoords, arrCoords, resCoords;
+		var arrCoords, resCoords;
 		arrCoords = orgUnit.coordinates.split("],[");
 		console.log(arrCoords.length);
 		for (var j = 0; j < arrCoords.length; j++) {
@@ -236,7 +236,7 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 }]);
 
 
-myAppServices.factory("NavService", function ($resource) {
+myAppServices.factory("NavService", ['OrgUnits', function (OrgUnits) {
 	var NavService = {};
 	NavService.naviArray = new Array(4);
 
@@ -247,7 +247,19 @@ myAppServices.factory("NavService", function ($resource) {
 			NavService.naviArray[i] = null;
 		}
 
+		if(orgUnit.level != 1) {
+			if((NavService.naviArray[orgUnit.level - 2] == null) || (NavService.naviArray[orgUnit.level - 2].id != orgUnit.parent.id)) {
+				console.log("wrong parent");
 
+				var parent = orgUnit.parent;
+				while(parent.level > 0) {
+					OrgUnits.getOrgUnit(parent.id).then(function(response) {
+						parent = response;
+						NavService.naviArray[level-1] = parent;
+					});
+				}
+			}
+		}
 		/*
 		 if (orgUnit.level != 1) {
 		 if (NavService.naviArray[orgUnit.level-2].id != orgUnit.parent.id) {
@@ -263,4 +275,4 @@ myAppServices.factory("NavService", function ($resource) {
 	}
 
 	return NavService;
-});
+}]);

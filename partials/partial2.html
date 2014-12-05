@@ -15,7 +15,7 @@
 </p>
 
 <table id="parentTable">
-  	<tr ng-repeat="x in newOrgUnit.parent.children" ng-click="getSingleOrgUnit(x.id)">
+  	<tr ng-repeat="x in newOrgUnit.parent.children" ng-click="getCurrOrgUnit(x.id)">
   		
     	<td style="cursor:pointer">{{ x.name }}</td>
   	</tr>
