@@ -2,14 +2,11 @@
 
 angular.module('myApp.controllers', []).
     controller('MyCtrl1', ['$scope', 'OrgUnits', 'MapService', 'NavService', function ($scope, OrgUnits, MapService, NavService) {
-        $scope.currOrgUnit = OrgUnits.currOrgUnit;
+        
+    	$scope.currOrgUnit = OrgUnits.currOrgUnit;
 
         $scope.showTable = true;
         $scope.detailsButtonTekst = "Show details";
-        $scope.editButtonTekst = "Edit";
-        $scope.edit = false;
-
-        $scope.test2 = false;
 
         var markers = new Array();
         var srLatLng = new google.maps.LatLng(8.460555,-11.779889);
@@ -41,19 +38,27 @@ angular.module('myApp.controllers', []).
         $scope.clearMap = function() {
             MapService.clearMap();
         }
-
+        
 
         $scope.hideShowTable = function() {
-
-            if($scope.detailsButtonTekst == "Show details")
-                $scope.detailsButtonTekst = "Hide details";
-            else
-                $scope.detailsButtonTekst = "Show details";
 
             $scope.showTable = !$scope.showTable;
 
             if($scope.test2)
                 $scope.test2 = !$scope.test2;
+            
+            if(!$scope.showTable)
+                $scope.detailsButtonTekst = "Hide details";
+            else
+                $scope.detailsButtonTekst = "Show details";
+            
+            if($scope.test2)
+            	$scope.test2= !$scope.test2;
+            
+            if($scope.test2 == true)
+                $scope.editButtonTekst = "Cancel";
+            else
+                $scope.editButtonTekst = "Edit";
         }
 
         function getFilterInput() {
@@ -90,20 +95,28 @@ angular.module('myApp.controllers', []).
         }
 
         /* old controller 3 */
-        $scope.showEditOrgUnit = function() {
-            $scope.edit = !$scope.edit;
-        }
+        $scope.editButtonTekst = "Edit";
+        $scope.edit = false;
 
+        $scope.test2 = false;
 
         $scope.editOrgUnit = function() {
 
             $scope.test2= !$scope.test2;
             $scope.edit = !$scope.edit;
-
-            if($scope.editButtonTekst == "Edit")
+            
+            if($scope.test2 == true)
                 $scope.editButtonTekst = "Cancel";
             else
                 $scope.editButtonTekst = "Edit";
+        }
+        $scope.navigateReset = function() {
+        	
+        	$scope.showTable = true;
+        	$scope.edit = false;
+        	$scope.test2 = false;
+        	$scope.editButtonTekst = "Edit";
+        	$scope.detailsButtonTekst = "Show details"
         }
 
         $scope.updateOrgUnit = function() {
