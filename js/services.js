@@ -255,7 +255,7 @@ myAppServices.factory("NavService", ['OrgUnits', function (OrgUnits) {
 				while(parent.level > 0) {
 					OrgUnits.getOrgUnit(parent.id).then(function(response) {
 						parent = response;
-						NavService.naviArray[level-1] = parent;
+						NavService.naviArray[parent.level-1] = parent;
 					});
 				}
 			}

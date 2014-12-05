@@ -41,7 +41,6 @@ angular.module('myApp.controllers', []).
         
 
         $scope.hideShowTable = function() {
-
             $scope.showTable = !$scope.showTable;
 
             if($scope.test2)
@@ -51,9 +50,6 @@ angular.module('myApp.controllers', []).
                 $scope.detailsButtonTekst = "Hide details";
             else
                 $scope.detailsButtonTekst = "Show details";
-            
-            if($scope.test2)
-            	$scope.test2= !$scope.test2;
             
             if($scope.test2 == true)
                 $scope.editButtonTekst = "Cancel";
@@ -105,8 +101,10 @@ angular.module('myApp.controllers', []).
             $scope.test2= !$scope.test2;
             $scope.edit = !$scope.edit;
             
-            if($scope.test2 == true)
+            if($scope.test2 == true) {
                 $scope.editButtonTekst = "Cancel";
+                $scope.newOrgUnit = jQuery.extend(true, {}, $scope.currOrgUnit);
+            }
             else
                 $scope.editButtonTekst = "Edit";
         }
@@ -121,7 +119,6 @@ angular.module('myApp.controllers', []).
 
         $scope.updateOrgUnit = function() {
             console.log("scope.update");
-            $scope.newOrgUnit = jQuery.extend(true, {}, $scope.currOrgUnit);
             console.log($scope.newOrgUnit);
             console.log($scope.newOrgUnit.active);
             //$scope.newOrgUnit.active = (bool)$scope.newOrgUnit.active;
