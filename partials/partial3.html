@@ -38,16 +38,16 @@
 			<div class="form-group">
 				<b>Coordinates</b></br />
 				<div class="form-group">
-					Latitude: <input type="text" class="form-control" ng-model="newOrgUnit.latitude" />
+					Latitude: <input type="text" class="form-control" ng-model="newOrgUnit.latitude"  ng-disabled="newOrgUnit.level != 4"/>
 				</div>
 				<div class="form-group">
-					Longitude: <input type="text" class="form-control" ng-model="newOrgUnit.longitude" />
+					Longitude: <input type="text" class="form-control" ng-model="newOrgUnit.longitude" ng-disabled="newOrgUnit.level != 4"/>
 				</div>
 				<br></br>
 
-				<button type="submit" class="btn btn-sm" ng-click="getLocation()" >Get location from browser</button>
-				<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow">Open map</button>
-
+				<button type="submit" class="btn btn-sm" ng-click="getLocation()" ng-disabled="newOrgUnit.level != 4">Get location from browser</button>
+				<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow" ng-disabled="newOrgUnit.level != 4">Open map</button>
+				<br ng-if="newOrgUnit.level != 4">Adding/editing coordinates disabled for areas</br>
 			</div>
 			<br></br>
 
