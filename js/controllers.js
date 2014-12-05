@@ -104,6 +104,9 @@ angular.module('myApp.controllers', []).
             if($scope.test2 == true) {
                 $scope.editButtonTekst = "Cancel";
                 $scope.newOrgUnit = jQuery.extend(true, {}, $scope.currOrgUnit);
+                var coordinates = JSON.parse($scope.newOrgUnit.coordinates);
+                $scope.newOrgUnit.latitude = coordinates[1];
+                $scope.newOrgUnit.longitude = coordinates[0];
             }
             else
                 $scope.editButtonTekst = "Edit";
@@ -121,6 +124,10 @@ angular.module('myApp.controllers', []).
             console.log("scope.update");
             console.log($scope.newOrgUnit);
             console.log($scope.newOrgUnit.active);
+            $scope.newOrgUnit.coordinates = "["+ $scope.newOrgUnit.longitude + "," + $scope.newOrgUnit.latitude + "]";
+            $scope.newOrgUnit.latitude = null;
+            $scope.newOrgUnit.longitude = null;
+            console.log($scope.newOrgUnit.coordinates);
             //$scope.newOrgUnit.active = (bool)$scope.newOrgUnit.active;
             OrgUnits.updateOrgUnit($scope.newOrgUnit);
             $scope.currOrgUnit = $scope.newOrgUnit;

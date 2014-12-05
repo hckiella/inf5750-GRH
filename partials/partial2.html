@@ -1,8 +1,15 @@
-<div class="container" ng-show="!parentSet">
+<!--<style>
+	body {background-color: #f5f5f5}
+</style>
+-->
+<div id="header">
 	<h2>Add Organisation Unit</h2>
+</div>
+<div ng-show="!parentSet">
+
 
 	<p>Choose parent
-		<button id="previousButton" class="btn btn-sm" ng-click="getOrgUnit(newOrgUnit.parent.parent.id)" ng-disabled="!newOrgUnit.parent.level == 1 || !newOrgUnit.parent" type="submit">Previous level</button>
+		<button id="previousButton" class="btn btn-sm" ng-click="getOrgUnit(newOrgUnit.parent.parent.id)" ng-disabled="newOrgUnit.parent.level == 1 || !newOrgUnit.parent" type="submit">Previous level</button>
 		<button ng-click="setParent(newOrgUnit.parent)" class="btn btn-sm">Done</button>
 		<a href="#/view1"><button id="cancelButton" class="btn btn-sm" type="submit">Cancel</button></a>
 	</p>
