@@ -1,7 +1,74 @@
+
+	<div id="editBlock">
+		<form novalidate class="form-inline" role="form" style="float:left">
+
+			<div class="form-group">
+				<b>Name:</b> <input type="text" class="form-control" ng-model="newOrgUnit.name" required/>
+			</div>
+			<div class="form-group">
+				<b> Shortname:</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName" required />
+			</div>
+			<br /><br />
+
+			<div class="form-group">
+				<b>Unit code:</b> <input type="text" class="form-control" ng-model="newOrgUnit.code" required/>
+			</div>
+			<div class="form-group">
+				<b>Parent:</b> <input type="text" class="form-control" ng-model="newOrgUnit.parent.name" required />
+			</div>
+			<br /><br />
+
+			<div class="form-group">
+				<label for="UnitTypeSelector">Unit type:</label>
+				<select class="form-control" id="UnitTypeSelector">
+					<option>Placeholder1</option>
+					<option>Placeholder2</option>
+					<option>Placeholder3</option>
+					<option>Placeholder4</option>
+				</select>
+			</div>
+			</br /><br />
+
+			<div class="form-group">
+				<b>Opening date:</b> <input type="text" class="form-control" ng-model="newOrgUnit.openingDate" required/>
+			</div>
+			</br /><br />
+
+
+			<div class="form-group">
+				<b>Coordinates</b></br />
+				<div class="form-group">
+					Latitude: <input type="text" class="form-control" ng-model="newOrgUnit.latitude" />
+				</div>
+				<div class="form-group">
+					Longitude: <input type="text" class="form-control" ng-model="newOrgUnit.longitude" />
+				</div>
+				<br></br>
+
+				<button type="submit" class="btn btn-sm" ng-click="getLocation()" >Get location from browser</button>
+				<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow">Open map</button>
+
+			</div>
+			<br></br>
+
+			<div class="form-group">
+				<b>Active:</b> <input type="radio" ng-model="newOrgUnit.active" value="true" />yes
+				<input type="radio" ng-model="newOrgUnit.active" value="false" />no<br />
+			</div>
+
+			<br></br>
+		
+			<button ng-click="updateOrgUnit()" class="btn btn-success btn-sm">Save</button>
+		</form>
+	</div>
+
+
+
+<!--
 <div>
 <div class="container" style="width:100%;float:left">
 	<div>
-		<h2 ng-show="currOrgUnit"><!-- Currently viewing --> {{currOrgUnit.name}}</h2>
+		<h2 ng-show="currOrgUnit">{{currOrgUnit.name}}</h2>
 		<h2 ng-show="!currOrgUnit">No unit chosen</h2>
 
 		<p>
@@ -24,7 +91,7 @@
 		<p>Coordinates:</p>
 		<p>Active:
 		 <id="" ng-if="currOrgUnit.active">yes</>
-		 <id="" ng-if="!currOrgUnit.active">no</>		 
+		 <id="" ng-if="!currOrgUnit.active">no</>
 		</p>
 		<p>Display name: {{currOrgUnit.displayName}}</p>
 		<p><b>Parent:</b> {{currOrgUnit.parent.name}}</p>
@@ -106,7 +173,7 @@
 		   	
 		  	<div class="form-group">
 			  	<b>Active:</b> <input type="radio" ng-model="newOrgUnit.active" value="true" />yes
-		    	<input type="radio" ng-model="newOrgUnit.active" value="false" />no<br />
+		    	<input type="radio" ng-model="newOrgUnit.active" value="!true" />no<br />
 		   	</div>
 		           
 		    <br></br>
@@ -121,7 +188,7 @@
 	</div>
 
 </div>
- 
+
 <!-- <p> Map demo using Leaflet (but no DHIS2 API connection):</p>
 <p>
     Long: <input type="number" ng-model="location.lng">

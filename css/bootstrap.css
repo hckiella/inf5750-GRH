@@ -6804,7 +6804,136 @@ td.visible-print {
   }
 }
 
+#leftDiv {
+  float: left;
+  width: 25%;
+}
+
+#rightDiv {
+  float: left;
+  width: 75%;
+}
+
+
+
+#infoBlock {
+
+  width: 100%;
+}
+
+#unitTable tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+#unitTable tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+#unitTable-filter tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+#unitTable-filter tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+
+#childrenTable-filter tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+#childrenTable-filter tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+/*
 #info {
+	float: left;
+	width: 20%;
+	clear: left;
+}
+
+#filterBox {
+	float: left;
+	clear: both;
+}
+
+#backButton1 {
+	float: left;
+	clear: left;
+	margin-right: 2px;
+	margin-left: 2px;
+}
+
+#backButton2 {
+	float: left;
+	clear: both;
+	margin-right: 2px;
+	margin-left: 2px;
+}
+
+#unitTable {
+	margin-left: 2px;
+	margin-right: 2px;
+	width: 15%;
+	max-height: 400px;
+	overflow: auto;
+	float: left;
+	clear: left;
+}
+
+
+
+#unitTable-filter {
+	margin-left: 2px;
+	margin-right: 2px;
+	width: 30%;
+	float: left;
+	clear: left;
+}
+
+
+
+#parentTable {
+	max-height: 400px;
+	overflow: auto;
+
+}
+#childrenTable {
+	max-height: 150px;
+	width: 200px;
+	overflow: auto;
+}
+
+
+
+*/
+
+#map-canvas {
+  height: 400px;
+
+  width: 100%;
+  float: left;
+}
+
+#map-canvas-save {
+  height: 400px;
+
+  width: 50%;
+  float: left;
+}
+
+
+#map-canvas-show {
+  height: 400px;
+
+  width: 50%;
+  float: left;
+}
+
+
+html, body {
+  height: 100%;
+}
+
+/*#info {
 	float: left;
 	width: 20%;
 	clear: left;
@@ -6864,19 +6993,11 @@ td.visible-print {
 #parentTable {
 	max-height: 400px;
 	overflow: auto;
-/*style="margin-left: 30%;
- margin-right:30%;
- width:50%
- */	
 }
 #childrenTable {
 	max-height: 150px;
 	width: 200px;
 	overflow: auto;
-	/*border: 1px;
-	border-style: solid;
-	border-color: #f8f8f7;
-	background-color: #f8f8f8*/
 }
 
 #childrenTable-filter tr:nth-child(even) {
@@ -6891,20 +7012,12 @@ td.visible-print {
 
 #map-canvas {
 	height: 400px;
-	/*padding-right: 15px;
-	padding-left: 15px;
-	margin-right: auto;
-	margin-left: 2px;*/
 	width: 60%;
 	float: right;
 }
 
 #map-canvas-save {
 	height: 400px;
-	/*padding-right: 15px;
-	padding-left: 15px;
-	margin-right: auto;
-	margin-left: 2px;*/
 	width: 50%;
 	float: right;
 }
@@ -6912,10 +7025,6 @@ td.visible-print {
 
 #map-canvas-show {
 	height: 400px;
-	/*padding-right: 15px;
-	padding-left: 15px;
-	margin-right: auto;
-	margin-left: 2px;*/
 	width: 50%;
 	float: right;
 }
@@ -6923,3 +7032,4 @@ td.visible-print {
 
 html, body {
 	height: 100%;
+	*/

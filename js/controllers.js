@@ -18,6 +18,37 @@ angular.module('myApp.controllers', []).
     controller('MyCtrl1', ['$scope', 'OrgUnits', 'MapService', function ($scope, OrgUnits, MapService) {
     	$scope.currOrgUnit = OrgUnits.currOrgUnit;
     	
+    	$scope.showTable = true;
+        $scope.detailsButtonTekst = "Show details";
+        $scope.editButtonTekst = "Edit";
+        $scope.edit = false;
+
+        $scope.test2 = false;
+    	
+    	$scope.editOrgUnit = function() {
+    		
+    		$scope.test2= !$scope.test2;
+    		$scope.edit = !$scope.edit;
+    		
+    		if($scope.editButtonTekst == "Edit")
+                $scope.editButtonTekst = "Cancel";
+            else
+                $scope.editButtonTekst = "Edit";
+    	}
+
+        $scope.hideShowTable = function() {
+
+            if($scope.detailsButtonTekst == "Show details")
+                $scope.detailsButtonTekst = "Hide details";
+            else
+                $scope.detailsButtonTekst = "Show details";
+            
+            $scope.showTable = !$scope.showTable;
+            
+            if($scope.test2)
+            	$scope.test2 = !$scope.test2;
+        }
+    	
     	var markers = new Array();
     	var srLatLng = new google.maps.LatLng(8.460555,-11.779889);
     	
