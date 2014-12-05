@@ -116,11 +116,13 @@ angular.module('myApp.controllers', []).
         	$scope.edit = false;
         	$scope.test2 = false;
         	$scope.editButtonTekst = "Edit";
-        	$scope.detailsButtonTekst = "Show details"
+        	$scope.detailsButtonTekst = "Show details";
         }
 
         $scope.updateOrgUnit = function() {
             console.log("scope.update");
+            $scope.newOrgUnit = jQuery.extend(true, {}, $scope.currOrgUnit);
+            console.log($scope.newOrgUnit);
             console.log($scope.newOrgUnit.active);
             //$scope.newOrgUnit.active = (bool)$scope.newOrgUnit.active;
             OrgUnits.updateOrgUnit($scope.newOrgUnit);
