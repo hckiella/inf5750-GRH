@@ -169,8 +169,8 @@ angular.module('myApp.controllers', []).
 
         }
 
-        $scope.getCurrOrgUnit = function(id) {
-            OrgUnits.getCurrOrgUnit(id).then(function(response) {
+        $scope.getOrgUnit = function(id) {
+            OrgUnits.getOrgUnit(id).then(function(response) {
                 $scope.orgUnits = response.data.children;
                 $scope.newOrgUnit.parent = response.data;
             });

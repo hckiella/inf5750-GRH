@@ -7,12 +7,12 @@
 
 <div id="leftDiv">
 
-	<p style="clear:left">
+	<div id="unitNav" style="clear:left;height: 45px">
 		<a id="level1" href="" ng-show="naviArray[0]" ng-click="data(naviArray[0]); navigateReset();" ng-disabled="!showTable">{{naviArray[0].name}}</a>
 		<a id="level2" href="" ng-show="naviArray[1]" ng-click="data(naviArray[1]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[1].name}}</a>
 		<a id="level3" href="" ng-show="naviArray[2]" ng-click="data(naviArray[2]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[2].name}}</a>
 		<a id="level4" href="" ng-show="naviArray[3]" ng-click="data(naviArray[3]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[3].name}}</a>
-	</p>
+	</div>
 
 	<div id="filterBox">
 		Search units:<br> <input ng-model="searchText" ng-disabled="!showTable">
