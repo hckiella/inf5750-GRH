@@ -8,20 +8,20 @@
 <div id="leftDiv">
 
 	<p style="clear:left">
-		<a id="level1" href="" ng-show="naviArray[0]" ng-click="data(naviArray[0])">{{naviArray[0].name}}</a>
-		<a id="level2" href="" ng-show="naviArray[1]" ng-click="data(naviArray[1])"> > {{naviArray[1].name}}</a>
-		<a id="level3" href="" ng-show="naviArray[2]" ng-click="data(naviArray[2])"> > {{naviArray[2].name}}</a>
-		<a id="level4" href="" ng-show="naviArray[3]" ng-click="data(naviArray[3])"> > {{naviArray[3].name}}</a>
+		<a id="level1" href="" ng-show="naviArray[0]" ng-click="data(naviArray[0]); navigateReset();" ng-disabled="!showTable">{{naviArray[0].name}}</a>
+		<a id="level2" href="" ng-show="naviArray[1]" ng-click="data(naviArray[1]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[1].name}}</a>
+		<a id="level3" href="" ng-show="naviArray[2]" ng-click="data(naviArray[2]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[2].name}}</a>
+		<a id="level4" href="" ng-show="naviArray[3]" ng-click="data(naviArray[3]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[3].name}}</a>
 	</p>
 
 	<div id="filterBox">
-		Search units:<br> <input ng-model="searchText">
+		Search units:<br> <input ng-model="searchText" ng-disabled="!showTable">
 		<br><br>
 	</div>
 
 	<div>
 		<p>
-			<button id="previousButton"  class="btn btn-sm" ng-click="clearFilter(); clearMap(); data(currOrgUnit.parent)" ng-disabled="!currOrgUnit.parent" type="submit">Previous level</button>
+			<button id="previousButton"  class="btn btn-sm" ng-click="clearFilter(); clearMap(); data(currOrgUnit.parent)" ng-disabled="!currOrgUnit.parent || !showTable" type="submit">Previous level</button>
 			<button id="showInfoButton"  class="btn btn-sm" ng-click="hideShowTable()" ng-disabled="!currOrgUnit" >{{detailsButtonTekst}}</button>
 		</p>
 	</div>

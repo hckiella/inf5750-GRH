@@ -36,15 +36,15 @@
 
 <form name="addUnitForm" novalidate class="form-inline" ng-submit="submitForm(addUnitForm.$valid)" style="width:50%;float:left">
     <div class="form-group">
-    	<b>Name:</b> <input type="text" pattern="[a-z0-9. -]+" class="form-control" ng-model="newOrgUnit.name" required/>
+    	<b>Name:</b><b style="color:red">*</b> <input type="text" pattern="[a-z0-9. -]+" class="form-control" ng-model="newOrgUnit.name" required/>
     </div> 
     <div class="form-group">
-    	<b>Shortname:</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName" required />
+    	<b>Shortname:</b><b style="color:red">*</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName" required />
     </div>
     <br /><br />
     
     <div class="form-group">
-		<b>Unit code:</b> <input type="text" class="form-control" ng-model="newOrgUnit.unitCode" required/>
+		<b>Unit code:</b> <input type="text" class="form-control" ng-model="newOrgUnit.unitCode"/>
 	</div>
 	 <div class="form-group">
     	<b>Parent:</b> <input type="text" class="form-control" ng-model="newOrgUnit.parent.name" readonly />
@@ -65,7 +65,7 @@
 	</br /><br />
 				
 	<div class="form-group">
-		<b>Opening date:</b> <input type="text" class="form-control" ng-model="newOrgUnit.openingDate" required/>
+		<b>Opening date:</b><b style="color:red">*</b> <input type="text" class="form-control" ng-model="newOrgUnit.openingDate" required/>
 	</div>			
 	</br /><br />
 	
@@ -96,8 +96,9 @@
     <br></br>
     
     <button ng-click="resetForm()" class="btn btn-danger">RESET</button>
-    <p ng-if="addUnitForm.$invalid" style="color:red">You have to fill in all required fields</p>
+    
     <button type ="submit" ng-click="saveOrgUnit(newOrgUnit)" class="btn btn-success" ng-disabled="addUnitForm.$invalid">SAVE</button>
+  	<p ng-if="addUnitForm.$invalid" style="color:red">You have to fill in all required fields</p>
   </form>
   
   <div id='map-canvas-save'></div>
@@ -121,4 +122,3 @@
 </p>
 
  -->
-
