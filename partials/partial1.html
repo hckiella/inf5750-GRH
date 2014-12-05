@@ -8,7 +8,7 @@
 <div id="leftDiv">
 
 	<div id="unitNav" style="clear:left;height: 45px">
-		<a id="level1" href="" ng-show="naviArray[0]" ng-click="data(naviArray[0]); navigateReset();" ng-disabled="!showTable">{{naviArray[0].name}}</a>
+		<a id="level1" href="" ng-show="naviArray[0]" ng-click="data(naviArray[0]);navigateReset();" ng-disabled="!showTable">{{naviArray[0].name}}</a>
 		<a id="level2" href="" ng-show="naviArray[1]" ng-click="data(naviArray[1]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[1].name}}</a>
 		<a id="level3" href="" ng-show="naviArray[2]" ng-click="data(naviArray[2]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[2].name}}</a>
 		<a id="level4" href="" ng-show="naviArray[3]" ng-click="data(naviArray[3]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[3].name}}</a>
@@ -64,13 +64,13 @@
 			Opening date: {{currOrgUnit.openingDate}}<br>
 			Last updated: <br>
 			Unit code: {{currOrgUnit.code}}<br>
-			Coordinates: {{currOrgUnit.coordinates}}<br>
+			Coordinates:
+			<nobr ng-if="currOrgUnit.level == 4">{{currOrgUnit.coordinates}}</nobr><br>
 			Active:
-			<id="" ng-if="currOrgUnit.active">yes</>
-		<id="" ng-if="!currOrgUnit.active">no</>
-	<br>
-	Display name: {{currOrgUnit.displayName}}<br>
-	<b>Parent:</b> {{currOrgUnit.parent.name}}</p>
+			<nobr ng-if="currOrgUnit.active == true">yes</nobr>
+			<nobr ng-if="currOrgUnit.active == false">no</nobr><br>
+			Display name: {{currOrgUnit.displayName}}<br>
+			<b>Parent:</b> {{currOrgUnit.parent.name}}</p>
 
 
 	<b>Unit groups</b>

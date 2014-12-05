@@ -48,7 +48,7 @@
     	<b>Name:</b><b style="color:red">*</b> <input type="text" pattern="[a-z0-9. -]+" class="form-control" ng-model="newOrgUnit.name" required/>
     </div> 
     <div class="form-group">
-    	<b>Shortname:</b><b style="color:red">*</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName" required />
+    	<b>Shortname:</b><b style="color:red">*</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName"/>
     </div>
     <br /><br />
     
@@ -74,7 +74,7 @@
 	</br /><br />
 				
 	<div class="form-group">
-		<b>Opening date:</b><b style="color:red">*</b> <input type="text" class="form-control" ng-model="newOrgUnit.openingDate" required/>
+		<b>Opening date:</b> <input type="text" class="form-control" ng-model="newOrgUnit.openingDate"/>
 	</div>			
 	</br /><br />
 	
@@ -83,17 +83,17 @@
     	<b>Coordinates</b></br />
     		
  	 	<div class="form-group">
- 	 		Latitude: <input type="number" class="form-control" ng-model="newOrgUnit.latitude" />
+ 	 		Latitude: <input type="number" class="form-control" ng-model="newOrgUnit.latitude"  ng-disabled="newOrgUnit.parent.level < 3"/>
  	 	</div>
  	 	<div class="form-group">
- 	 		Longitude: <input type="number" class="form-control" ng-model="newOrgUnit.longitude" />
+ 	 		Longitude: <input type="number" class="form-control" ng-model="newOrgUnit.longitude"  ng-disabled="newOrgUnit.parent.level < 3"/>
  	 	</div>
  	 	
  	 	<br></br>
  	 	
- 	 	<button type="submit" class="btn btn-sm" ng-click="getLocation()" >Get location from browser</button>
- 		<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow">Open map</button>
-
+ 	 	<button type="submit" class="btn btn-sm" ng-click="getLocation()"  ng-disabled="newOrgUnit.parent.level < 3">Get location from browser</button>
+ 		<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow" ng-disabled="newOrgUnit.parent.level < 3">Open map</button>
+		<p ng-if="newOrgUnit.parent.level < 3">Adding coordinates disabled for non-single units</p>
  		</div>
   	<br></br>
    	

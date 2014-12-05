@@ -35,7 +35,8 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 			url: "http://inf5750-6.uio.no/api/organisationUnits",
 			dataType: "json",
 			method: "POST",
-			data: JSON.stringify(newOrgUnit),
+			//data: JSON.stringify(newOrgUnit),
+			data: newOrgUnit,
 			headers: {
 				"Content-Type": "application/json"
 			}

@@ -103,10 +103,14 @@ angular.module('myApp.controllers', []).
             
             if($scope.test2 == true) {
                 $scope.editButtonTekst = "Cancel";
+
                 $scope.newOrgUnit = jQuery.extend(true, {}, $scope.currOrgUnit);
-                var coordinates = JSON.parse($scope.newOrgUnit.coordinates);
-                $scope.newOrgUnit.latitude = coordinates[1];
-                $scope.newOrgUnit.longitude = coordinates[0];
+
+                if(($scope.newOrgUnit.coordinates) && ($scope.currOrgUnit.level == 4)) {
+                    var coordinates = JSON.parse($scope.newOrgUnit.coordinates);
+                    $scope.newOrgUnit.latitude = coordinates[1];
+                    $scope.newOrgUnit.longitude = coordinates[0];
+                }
             }
             else
                 $scope.editButtonTekst = "Edit";
@@ -121,14 +125,10 @@ angular.module('myApp.controllers', []).
         }
 
         $scope.updateOrgUnit = function() {
-            console.log("scope.update");
-            console.log($scope.newOrgUnit);
-            console.log($scope.newOrgUnit.active);
-            $scope.newOrgUnit.coordinates = "["+ $scope.newOrgUnit.longitude + "," + $scope.newOrgUnit.latitude + "]";
-            $scope.newOrgUnit.latitude = null;
-            $scope.newOrgUnit.longitude = null;
-            console.log($scope.newOrgUnit.coordinates);
-            //$scope.newOrgUnit.active = (bool)$scope.newOrgUnit.active;
+            if(($scope.newOrgUnit.latitude) && ($scope.newOrgUnit.longitude) && ($scope.currOrgUnit.level == 4)) {
+                $scope.newOrgUnit.coordinates = "[" + $scope.newOrgUnit.longitude + "," + $scope.newOrgUnit.latitude + "]";
+            }
+
             OrgUnits.updateOrgUnit($scope.newOrgUnit);
             $scope.currOrgUnit = $scope.newOrgUnit;
             $scope.newOrgUnit = null;
@@ -194,6 +194,9 @@ angular.module('myApp.controllers', []).
         }
 
         $scope.saveOrgUnit = function(newOrgUnit) {
+            if(newOrgUnit.longitude && newOrgUnit.latitude) {
+                newOrgUnit.coordinates = "[" + newOrgUnit.longitude + ","  + newOrgUnit.latitude + "]";
+            }
             OrgUnits.saveOrgUnit(newOrgUnit).then(function() {
                 if(OrgUnits.lastStatus == "SUCCESS") {
                     alert("Unit successfully saved ");
