@@ -239,7 +239,7 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 myAppServices.factory("NavService", ['OrgUnits', function (OrgUnits) {
 	var NavService = {};
 	NavService.naviArray = new Array(4);
-	var parent;
+	var parent = {};
 	var level;
 
 	NavService.createNaviArray = function(orgUnit) {
@@ -252,9 +252,14 @@ myAppServices.factory("NavService", ['OrgUnits', function (OrgUnits) {
 		if(orgUnit.level != 1) {
 			if((NavService.naviArray[orgUnit.level - 2] == null) || (NavService.naviArray[orgUnit.level - 2].id != orgUnit.parent.id)) {
 				console.log("wrong parent");
+				/*for (var i = orgUnit.level-2; i >= 1; i--) {
+					NavService.naviArray[i] = null;
+				}
+				*/
 				parent = orgUnit.parent;
 				console.log(orgUnit.level);
 				parent.level = orgUnit.level-1;
+
 				//parent.level = 0;
 				console.log(parent.level);
 				/*OrgUnits.getOrgUnit(parent.id).then(function(response) {

@@ -1,28 +1,30 @@
-<h2>Add Organisation Unit</h2>
-
 <div class="container" ng-show="!parentSet">
-<p>Choose parent
-<button id="previousButton" class="btn btn-sm" ng-click="getOrgUnit(newOrgUnit.parent.parent.id)" ng-disabled="!newOrgUnit.parent.level == 1 || !newOrgUnit.parent" type="submit">Previous level</button>
-<button ng-click="setParent(newOrgUnit.parent)" class="btn btn-sm">Done</button>
-<a href="#/view1"><button id="cancelButton" class="btn btn-sm" type="submit">Cancel</button></a>
-</p>
+	<h2>Add Organisation Unit</h2>
+
+	<p>Choose parent
+		<button id="previousButton" class="btn btn-sm" ng-click="getOrgUnit(newOrgUnit.parent.parent.id)" ng-disabled="!newOrgUnit.parent.level == 1 || !newOrgUnit.parent" type="submit">Previous level</button>
+		<button ng-click="setParent(newOrgUnit.parent)" class="btn btn-sm">Done</button>
+		<a href="#/view1"><button id="cancelButton" class="btn btn-sm" type="submit">Cancel</button></a>
+	</p>
 
 
-<p>
-	<b>Currently chosen: </b>
-	<b ng-show="newOrgUnit.parent"> {{newOrgUnit.parent.name}}</b>
-	<b ng-show="!newOrgUnit.parent"> None</b>
-</p>
+	<p>
+		<b>Currently chosen: </b>
+		<b ng-show="newOrgUnit.parent"> {{newOrgUnit.parent.name}}</b>
+		<b ng-show="!newOrgUnit.parent"> None</b>
+	</p>
 
-<table id="parentTable">
-  	<tr ng-repeat="x in newOrgUnit.parent.children" ng-click="getOrgUnit(x.id)">
-  		
-    	<td style="cursor:pointer">{{ x.name }}</td>
-  	</tr>
-</table>
+	<div id="pTableDiv">
+		<table id="parentTable">
+			<tr ng-repeat="x in newOrgUnit.parent.children | orderBy:'name'" ng-click="getOrgUnit(x.id)">
 
-<b ng-if="newOrgUnit.parent.level == 4">No children</b>
+				<td style="cursor:pointer">{{ x.name }}</td>
 
+			</tr>
+		</table>
+
+		<b ng-if="newOrgUnit.parent.level == 4">No children</b>
+	</div>
 
 
 </div>

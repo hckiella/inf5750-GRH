@@ -29,14 +29,14 @@
 
 		<table id="unitTable-filter" ng-if="searchText">
 			<tr><th>Name</th>
-			<tr ng-repeat="x in currentUnits | exact:searchText"  ng-click="data(x)">
+			<tr ng-repeat="x in currentUnits | exact:searchText | orderBy:'name'"  ng-click="data(x)">
 				<td style="cursor:pointer">{{x.name}}</td>
 			</tr>
 		</table>
 
 		<table id="unitTable" ng-if="currOrgUnit.level == 4">
 			<tr>
-				<th>Children <!--of {{currOrgUnit.name}}--></th>
+				<th>Children</th>
 			</tr>
 			<tr>
 				<td>None</td>
@@ -47,7 +47,7 @@
 			<tr>
 				<th>Children <!--of {{currOrgUnit.name}}--></th>
 			</tr>
-			<tr ng-repeat="x in currOrgUnit.children" ng-click="data(x)">
+			<tr ng-repeat="x in currOrgUnit.children | orderBy:'name'" ng-click="data(x)">
 				<td style="cursor:pointer">{{ x.name }}</td>
 			</tr>
 			<tr ng-if="currOrgUnit.children.length == 0 ">

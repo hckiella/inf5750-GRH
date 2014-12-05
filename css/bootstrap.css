@@ -6854,6 +6854,12 @@ td.visible-print {
   background-color: #fff;
 }
 
+#pTableDiv {
+  height: 500px;
+  width: 28.5%;
+  overflow: auto;
+}
+
 /*
 #info {
 	float: left;
