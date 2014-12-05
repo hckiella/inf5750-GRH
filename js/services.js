@@ -239,6 +239,8 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 myAppServices.factory("NavService", ['OrgUnits', function (OrgUnits) {
 	var NavService = {};
 	NavService.naviArray = new Array(4);
+	var parent;
+	var level;
 
 	NavService.createNaviArray = function(orgUnit) {
 		NavService.naviArray[orgUnit.level - 1] = orgUnit;
@@ -250,28 +252,39 @@ myAppServices.factory("NavService", ['OrgUnits', function (OrgUnits) {
 		if(orgUnit.level != 1) {
 			if((NavService.naviArray[orgUnit.level - 2] == null) || (NavService.naviArray[orgUnit.level - 2].id != orgUnit.parent.id)) {
 				console.log("wrong parent");
-
-				var parent = orgUnit.parent;
-				while(parent.level > 0) {
-					OrgUnits.getOrgUnit(parent.id).then(function(response) {
+				parent = orgUnit.parent;
+				console.log(orgUnit.level);
+				parent.level = orgUnit.level-1;
+				//parent.level = 0;
+				console.log(parent.level);
+				/*OrgUnits.getOrgUnit(parent.id).then(function(response) {
+					parent = response.data;
+					console.log(parent.level);
+					NavService.naviArray[parent.level - 1] = parent;
+				});
+				*/
+				/*level = parent.level;
+				while(level > 1) {
+					OrgUnits.getOrgUnit(parent.id).success(function(response) {
 						parent = response;
+						console.log(response);
+						level--;
 						NavService.naviArray[parent.level-1] = parent;
 					});
-				}
+//					getParent();
+
+				}*/
+
 			}
 		}
-		/*
-		 if (orgUnit.level != 1) {
-		 if (NavService.naviArray[orgUnit.level-2].id != orgUnit.parent.id) {
-		 var level = orgUnit.level;
-		 while (level > 0) {
-		 console.log("feil parent");
-		 level--;
-		 }
-		 }
+	}
 
-		 }
-		 */
+	function getParent() {
+		OrgUnits.getOrgUnit(parent.id).success(function(response) {
+			parent = response;
+			console.log(response);
+			NavService.naviArray[parent.level-1] = parent;
+		});
 	}
 
 	return NavService;

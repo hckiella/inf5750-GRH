@@ -6821,6 +6821,12 @@ td.visible-print {
   width: 100%;
 }
 
+#tableDiv {
+  height: 325px;
+  width: 95%;
+  overflow-y: scroll;
+}
+
 #unitTable tr:nth-child(even) {
   background-color: #f8f8f8;
 }

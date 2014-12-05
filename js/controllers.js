@@ -111,8 +111,8 @@ angular.module('myApp.controllers', []).
         $scope.navigateReset = function() {
         	
         	$scope.showTable = true;
+            $scope.test2 = false;
         	$scope.edit = false;
-        	$scope.test2 = false;
         	$scope.editButtonTekst = "Edit";
         	$scope.detailsButtonTekst = "Show details";
         }
