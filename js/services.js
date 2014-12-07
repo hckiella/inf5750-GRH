@@ -35,7 +35,6 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 			url: "http://inf5750-6.uio.no/api/organisationUnits",
 			dataType: "json",
 			method: "POST",
-			//data: JSON.stringify(newOrgUnit),
 			data: newOrgUnit,
 			headers: {
 				"Content-Type": "application/json"
@@ -47,7 +46,6 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 	}
 
 	OrgUnits.updateOrgUnit = function(orgUnit) {
-		console.log("orgUnits.update");
 		return $http({
 			url: "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id,
 			dataType: "json",
@@ -57,26 +55,17 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 				"Content-Type": "application/json"
 			}
 		}).success(function(response) {
-			console.log("update-success");
+			alert("Unit successfully updated");
 		});
 	}
 
 	OrgUnits.deleteOrgUnit = function(orgUnit) {
-		var url = "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id;
-		console.log(url);
-
-		for(var i = 0; i < orgUnit.organisationUnitGroups.length; i++) {
-			console.log(orgUnit.organisationUnitGroups[i].name + " " + orgUnit.organisationUnitGroups[i].id);
-		}
-
-		console.log("Parent: " + orgUnit.parent.id);
-
-		/*return $http({
+		return $http({
 		 url: "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id,
 		 method: "DELETE"
-		 }).success(function(response) {
-		 console.log("success");
-		 });*/
+		 }).success(function() {
+		 	alert("Unit successfully deleted");
+		 });
 	}
 
 	OrgUnits.apiDelete = function(url) {
@@ -84,7 +73,7 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 			url: url,
 			method: "DELETE"
 		}).success(function(response) {
-			console.log("success");
+			console.log("Delete success");
 		});
 	}
 
@@ -122,7 +111,6 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 			mapTypeId: google.maps.MapTypeId.TERRAIN
 		}
 		MapService.map = new google.maps.Map(document.getElementById(mapName), mapOptions);
-		console.log("showMap");
 	}
 
 	MapService.showCoords = function(orgUnit, callback) {
@@ -132,10 +120,8 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 		}
 
 		else {
-			if (orgUnit.coordinates) { //else if
+			if (orgUnit.coordinates) {
 				if (orgUnit.level == 4) {
-					console.log(orgUnit.coordinates);
-					//MapService.clearMap();
 					showSingleUnit(orgUnit);
 				}
 
@@ -176,15 +162,12 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 
 
 	function showBoundary(orgUnit) {
-		console.log(orgUnit.name);
-
 		var boundaryCoords = new Array();
 
 		var markerBounds = new google.maps.LatLngBounds();
 
 		var arrCoords, resCoords;
 		arrCoords = orgUnit.coordinates.split("],[");
-		console.log(arrCoords.length);
 		for (var j = 0; j < arrCoords.length; j++) {
 			resCoords = arrCoords[j].split(",");
 
@@ -250,47 +233,19 @@ myAppServices.factory("NavService", ['OrgUnits', function (OrgUnits) {
 			NavService.naviArray[i] = null;
 		}
 
-		if(orgUnit.level != 1) {
+		if(orgUnit.level > 2) {
 			if((NavService.naviArray[orgUnit.level - 2] == null) || (NavService.naviArray[orgUnit.level - 2].id != orgUnit.parent.id)) {
 				console.log("wrong parent");
-				/*for (var i = orgUnit.level-2; i >= 1; i--) {
-					NavService.naviArray[i] = null;
-				}
-				*/
-				parent = orgUnit.parent;
-				console.log(orgUnit.level);
-				parent.level = orgUnit.level-1;
-
-				//parent.level = 0;
-				console.log(parent.level);
-				/*OrgUnits.getOrgUnit(parent.id).then(function(response) {
-					parent = response.data;
-					console.log(parent.level);
+				OrgUnits.getOrgUnit(orgUnit.parent.id).then(function(response) {
+					var parent = response.data;
 					NavService.naviArray[parent.level - 1] = parent;
+
+					if(parent.level > 2) {
+						NavService.naviArray[parent.level - 2] = parent.parent;
+					}
 				});
-				*/
-				/*level = parent.level;
-				while(level > 1) {
-					OrgUnits.getOrgUnit(parent.id).success(function(response) {
-						parent = response;
-						console.log(response);
-						level--;
-						NavService.naviArray[parent.level-1] = parent;
-					});
-//					getParent();
-
-				}*/
-
 			}
 		}
-	}
-
-	function getParent() {
-		OrgUnits.getOrgUnit(parent.id).success(function(response) {
-			parent = response;
-			console.log(response);
-			NavService.naviArray[parent.level-1] = parent;
-		});
 	}
 
 	return NavService;

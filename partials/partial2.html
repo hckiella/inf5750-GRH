@@ -10,7 +10,7 @@
 
 	<p>Choose parent
 		<button id="previousButton" class="btn btn-sm" ng-click="getOrgUnit(newOrgUnit.parent.parent.id)" ng-disabled="newOrgUnit.parent.level == 1 || !newOrgUnit.parent" type="submit">Previous level</button>
-		<button ng-click="setParent(newOrgUnit.parent)" class="btn btn-sm">Done</button>
+		<button ng-click="setParent()" class="btn btn-sm">Done</button>
 		<a href="#/view1"><button id="cancelButton" class="btn btn-sm" type="submit">Cancel</button></a>
 	</p>
 
@@ -113,21 +113,3 @@
   <div id='map-canvas-save'></div>
   
 </div>
-
-
-
-
-<!-- <p>This view allows you to test the user settings.
-    This is like an HTTP-based database for your Javascript.
-    There are system-wide and user settings. </p>
-<p>Your saved setting is: {{earlierSetting}} (click 'Refresh' below to fetch from server).</p>
-<p>
-    <input ng-model="userSetting.value" type="text" placeholder="Data to save" class="form-control">
-
-</p>
-<p>
-    <button ng-click="saveSetting()" type="submit" class="btn btn-success">Save setting</button>
-    <button ng-click="refreshSetting()" type="submit" class="btn btn-success">Refresh</button>
-</p>
-
- -->

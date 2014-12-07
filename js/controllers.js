@@ -38,24 +38,6 @@ angular.module('myApp.controllers', []).
         $scope.clearMap = function() {
             MapService.clearMap();
         }
-        
-
-        $scope.hideShowTable = function() {
-            $scope.showTable = !$scope.showTable;
-
-            if($scope.test2)
-                $scope.test2 = !$scope.test2;
-            
-            if(!$scope.showTable)
-                $scope.detailsButtonTekst = "Hide details";
-            else
-                $scope.detailsButtonTekst = "Show details";
-            
-            if($scope.test2 == true)
-                $scope.editButtonTekst = "Cancel";
-            else
-                $scope.editButtonTekst = "Edit";
-        }
 
         function getFilterInput() {
             $scope.searchText = document.getElementById('searchText');
@@ -95,6 +77,23 @@ angular.module('myApp.controllers', []).
         $scope.edit = false;
 
         $scope.test2 = false;
+
+        $scope.hideShowTable = function() {
+            $scope.showTable = !$scope.showTable;
+
+            if($scope.test2)
+                $scope.test2 = !$scope.test2;
+
+            if(!$scope.showTable)
+                $scope.detailsButtonTekst = "Hide details";
+            else
+                $scope.detailsButtonTekst = "Show details";
+
+            if($scope.test2 == true)
+                $scope.editButtonTekst = "Cancel";
+            else
+                $scope.editButtonTekst = "Edit";
+        }
 
         $scope.editOrgUnit = function() {
 
@@ -160,14 +159,13 @@ angular.module('myApp.controllers', []).
 
     }])
     .controller('MyCtrl2', ['$scope', 'OrgUnits', 'MapService', function ($scope, OrgUnits, MapService) {
-        $scope.newOrgUnit = {};
         var mapShown = false;
 
+        $scope.newOrgUnit = {};
+        $scope.newOrgUnit.parent = OrgUnits.currOrgUnit;
         $scope.parentSet = false;
 
-        $scope.newOrgUnit.parent = OrgUnits.currOrgUnit;
-
-        $scope.setParent = function(parent) {
+        $scope.setParent = function() {
             $scope.parentSet = true;
         }
 
