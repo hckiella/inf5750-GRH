@@ -65,10 +65,10 @@
 			Last updated: <br>
 			Unit code: {{currOrgUnit.code}}<br>
 			Coordinates:
-			<br ng-if="currOrgUnit.level == 4">{{currOrgUnit.coordinates}}</br>
+			<nobr ng-if="currOrgUnit.level == 4">{{currOrgUnit.coordinates}}</nobr><br>
 			Active:
-			<br ng-if="currOrgUnit.active == true">yes</br>
-			<br ng-if="currOrgUnit.active == false">no</br>
+			<nobr ng-if="currOrgUnit.active == true">yes</nobr>
+			<nobr ng-if="currOrgUnit.active == false">no</nobr><br>
 			Display name: {{currOrgUnit.displayName}}<br>
 			<b>Parent:</b> {{currOrgUnit.parent.name}}</p>
 
