@@ -65,11 +65,13 @@
 			Last updated: {{currOrgUnit.lastUpdated.substring(0,10)}} {{currOrgUnit.lastUpdated.substring(11,19)}}<br>
 			Unit code: {{currOrgUnit.code}}<br>
 			Coordinates:
-			<nobr ng-if="currOrgUnit.level == 4">{{currOrgUnit.coordinates}}</nobr><br>
+			<nobr ng-if="currOrgUnit.level == 4 && currOrgUnit.coordinates">{{currOrgUnit.coordinates}}</nobr>
+			<nobr ng-if="currOrgUnit.level != 4 && currOrgUnit.coordinates">Several</nobr>
+			<nobr ng-if="!currOrgUnit.coordinates">None</nobr><br>
 			Active:
 			<nobr ng-if="currOrgUnit.active == true">yes</nobr>
 			<nobr ng-if="currOrgUnit.active == false">no</nobr><br>
-			<b>Parent:</b> {{currOrgUnit.parent.name}}</p>
+			Parent: {{currOrgUnit.parent.name}}</p>
 
 
 	<b>Unit groups</b>
