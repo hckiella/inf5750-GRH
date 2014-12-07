@@ -58,18 +58,17 @@
 
 	<div id="infoBlock" ng-if="!showTable">
 		<p>Name: {{currOrgUnit.name}} <br>
-			ShortName: {{currOrgUnit.shortName}}<br>
+			Shortname: {{currOrgUnit.shortName}}<br>
 			Id: {{currOrgUnit.id}}<br>
 			Level: {{currOrgUnit.level}}<br>
 			Opening date: {{currOrgUnit.openingDate}}<br>
-			Last updated: <br>
+			Last updated: {{currOrgUnit.lastUpdated.substring(0,10)}} {{currOrgUnit.lastUpdated.substring(11,19)}}<br>
 			Unit code: {{currOrgUnit.code}}<br>
 			Coordinates:
 			<nobr ng-if="currOrgUnit.level == 4">{{currOrgUnit.coordinates}}</nobr><br>
 			Active:
 			<nobr ng-if="currOrgUnit.active == true">yes</nobr>
 			<nobr ng-if="currOrgUnit.active == false">no</nobr><br>
-			Display name: {{currOrgUnit.displayName}}<br>
 			<b>Parent:</b> {{currOrgUnit.parent.name}}</p>
 
 
