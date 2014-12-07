@@ -93,7 +93,7 @@
  	 	
  	 	<button type="submit" class="btn btn-sm" ng-click="getLocation()"  ng-disabled="newOrgUnit.parent.level < 3">Get location from browser</button>
  		<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow" ng-disabled="newOrgUnit.parent.level < 3">Open map</button>
-		<br ng-if="newOrgUnit.parent.level < 3">Adding coordinates disabled for areas</br>
+		<nobr ng-if="newOrgUnit.parent.level < 3">Adding coordinates disabled for areas</nobr><br>
  		</div>
   	<br></br>
    	
