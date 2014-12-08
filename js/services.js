@@ -205,27 +205,6 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 		}
 	}
 
-
-	MapService.getLocation = function(callback) {
-		if (Modernizr.geolocation) {
-			navigator.geolocation
-				.getCurrentPosition(callback, locationError);
-		} else {
-			alert("Error retrieving location (Modernizr.geolocation not present)");
-		}
-
-		return MapService;
-	}
-
-	function locationFound(position) {
-		MapService.latitude = position.coords.latitude;
-		MapService.longitude = position.coords.longitude;
-	}
-
-	function locationError(error) {
-		alert("Undefined error while retrieving location");
-	}
-
 	return MapService;
 }]);
 
@@ -248,7 +227,7 @@ myAppServices.factory("NavService", ['OrgUnits', function (OrgUnits) {
 
 		if(orgUnit.level > 2) {
 			if((NavService.naviArray[orgUnit.level - 2] == null) || (NavService.naviArray[orgUnit.level - 2].id != orgUnit.parent.id)) {
-				console.log("wrong parent");
+
 				OrgUnits.getOrgUnit(orgUnit.parent.id).then(function(response) {
 					var parent = response.data;
 					NavService.naviArray[parent.level - 1] = parent;

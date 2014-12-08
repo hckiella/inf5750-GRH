@@ -152,13 +152,24 @@ angular.module('myApp.controllers', []).
         }
 
 
-        $scope.getLocation = function () {
-            MapService.getLocation(locationFound);
+        $scope.getLocation = function() {
+            if (Modernizr.geolocation) {
+                navigator.geolocation
+                    .getCurrentPosition(locationFound, locationError);
+            } else {
+                alert("Error retrieving location (Modernizr.geolocation not present)");
+            }
         }
 
         function locationFound(position) {
-            $scope.latitude = position.coords.latitude;
-            $scope.longitude = position.coords.longitude;
+            $scope.$apply(function() {
+                $scope.newOrgUnit.latitude = position.coords.latitude;
+                $scope.newOrgUnit.longitude = position.coords.longitude;
+            });
+        }
+
+        function locationError(error) {
+            alert("Undefined error while retrieving location");
         }
 
     }])

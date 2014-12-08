@@ -17,7 +17,7 @@
 		<b ng-show="!newOrgUnit.parent"> None</b>
 	</p>
 
-	<div id="pTableDiv">
+	<div id="pTableDiv" ng-show="newOrgUnit.parent.level < 3">
 		<table id="parentTable">
 			<tr ng-repeat="x in newOrgUnit.parent.children | orderBy:'name'" ng-click="getOrgUnit(x.id)">
 
