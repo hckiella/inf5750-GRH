@@ -44,7 +44,7 @@
 			<b>Name:</b><b style="color:red">*</b> <input type="text" pattern="[a-z0-9. -]+" class="form-control" ng-model="newOrgUnit.name" required/>
 		</div>
 		<div class="form-group">
-			<b>Shortname:</b><b style="color:red">*</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName"/>
+			<b>Shortname:</b><input type="text" class="form-control" ng-model="newOrgUnit.shortName"/>
 		</div>
 		<br /><br />
 
@@ -58,29 +58,31 @@
 		<br /><br />
 
 		<div class="form-group">
-			<b>Opening date:</b><b style="color:red">*</b> <input name="openingDate" type="text" class="form-control" ng-pattern='/^(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])\-(199\d)|([2-9]\d{3})$/' ng-model="newOrgUnit.openingDate" required/>
+			<b>Opening date:</b><input name="openingDate" type="text" class="form-control" ng-pattern='/^(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])\-(199\d)|([2-9]\d{3})$/' ng-model="newOrgUnit.openingDate"/>
 		</div><br>
 		<span style="color: red" ng-show="addUnitForm.openingDate.$error.pattern">Incorrect Format, should be MM-DD-YYYY</span>
 
 		</br /><br />
 
 
-		<div class="form-group">
+		
 			<b>Coordinates</b></br />
 
 			<div class="form-group">
-				Latitude: <input type="number" class="form-control" ng-model="newOrgUnit.latitude"  ng-disabled="newOrgUnit.parent.level < 3"/>
+				Latitude: <input type="text" name="latitude" class="form-control" ng-pattern='/^[0-9]{1,7}(\.[0-9]+)?$/' ng-model="newOrgUnit.latitude"  ng-disabled="newOrgUnit.parent.level < 3"/>
 			</div>
 			<div class="form-group">
-				Longitude: <input type="number" class="form-control" ng-model="newOrgUnit.longitude"  ng-disabled="newOrgUnit.parent.level < 3"/>
+				Longitude: <input type="text" name="longitude" class="form-control" ng-pattern='/^[0-9]{1,7}(\.[0-9]+)?$/' ng-model="newOrgUnit.longitude"  ng-disabled="newOrgUnit.parent.level < 3"/>
 			</div>
-
+			<br>
+			<span style="color: red" ng-show="addUnitForm.latitude.$error.pattern">Incorrect latitude, should be 0.6565</span>
+			<span style="color: red" ng-show="addUnitForm.longitude.$error.pattern">Incorrect longitude, should be 0.6565</span>
 			<br></br>
 
 			<button type="submit" class="btn btn-sm" ng-click="getLocation()"  ng-disabled="newOrgUnit.parent.level < 3">Get location from browser</button>
 			<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow" ng-disabled="newOrgUnit.parent.level < 3">Open map</button>
 			<nobr ng-if="newOrgUnit.parent.level < 3">Adding coordinates disabled for areas</nobr><br>
-		</div>
+		
 		<br></br>
 
 		<div class="form-group">

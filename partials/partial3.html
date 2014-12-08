@@ -1,42 +1,48 @@
 
 	<div id="editBlock">
-		<form novalidate class="form-inline" role="form" style="float:left">
+		<form name="editUnitForm" novalidate class="form-inline" role="form" style="float:left">
 
 			<div class="form-group">
-				<b>Name:</b> <input type="text" class="form-control" ng-model="newOrgUnit.name" required/>
+				<b>Name:</b> <input type="text" class="form-control" ng-model="newOrgUnit.name"/>
 			</div>
 			<div class="form-group">
-				<b> Shortname:</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName" required />
+				<b> Shortname:</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName"  />
 			</div>
 			<br /><br />
 
 			<div class="form-group">
-				<b>Unit code:</b> <input type="text" class="form-control" ng-model="newOrgUnit.code" required/>
+				<b>Unit code:</b> <input type="text" class="form-control" ng-model="newOrgUnit.code" />
 			</div>
 			<div class="form-group">
-				<b>Parent:</b> <input type="text" class="form-control" ng-model="newOrgUnit.parent.name" required />
+				<b>Parent:</b> <input type="text" class="form-control" ng-model="newOrgUnit.parent.name"  />
 			</div>
 			<br /><br />
 
 			<div class="form-group">
-				<b>Opening date:</b> <input type="text" class="form-control" ng-model="newOrgUnit.openingDate" required/>
+				<b>Opening date:</b> <input name="openingDate" type="text" class="form-control" ng-pattern='/^(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])\-(199\d)|([2-9]\d{3})$/' ng-model="newOrgUnit.openingDate" />
 			</div>
+			<span style="color: red" ng-show="editUnitForm.openingDate.$error.pattern">Incorrect Format, should be MM-DD-YYYY</span>
 			</br /><br />
+			
+			
 
 
-			<div class="form-group">
 				<b>Coordinates</b></br />
 				<div class="form-group">
-					Latitude: <input type="text" class="form-control" ng-model="newOrgUnit.latitude"  ng-disabled="newOrgUnit.level != 4"/>
+					Latitude: <input name="latitude" type="text" class="form-control" ng-model="newOrgUnit.latitude" ng-pattern='/^[0-9]{1,7}(\.[0-9]+)?$/'  ng-disabled="newOrgUnit.level != 4"/>
 				</div>
 				<div class="form-group">
-					Longitude: <input type="text" class="form-control" ng-model="newOrgUnit.longitude" ng-disabled="newOrgUnit.level != 4"/>
+					Longitude: <input name="longitude" type="text" class="form-control" ng-model="newOrgUnit.longitude" ng-pattern='/^[0-9]{1,7}(\.[0-9]+)?$/' ng-disabled="newOrgUnit.level != 4"/>
 				</div>
+				<br></br>
+				<span style="color: red" ng-show="editUnitForm.latitude.$error.pattern">Incorrect latitude, should be 0.6565</span>
+				<span style="color: red" ng-show="editUnitForm.longitude.$error.pattern">Incorrect longitude, should be 0.6565</span>
+			
 				<br></br>
 
 				<button type="submit" class="btn btn-sm" ng-click="getLocation()" ng-disabled="newOrgUnit.level != 4">Get location from browser</button>
 				<nobr ng-if="newOrgUnit.level != 4">Adding/editing coordinates disabled for areas</nobr><br>
-			</div>
+			
 			<br></br>
 
 			<div class="form-group">
