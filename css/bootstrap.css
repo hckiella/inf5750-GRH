@@ -6848,6 +6848,17 @@ td.visible-print {
 }
 
 
+#tableDiv {
+  height: 312px;
+  width: 95%;
+  overflow-y: scroll;
+}
+
+#unitTable {
+  width: 95%;
+}
+
+
 #unitTable tr:nth-child(even) {
   background-color: #f8f8f8;
 }
@@ -6902,5 +6913,8 @@ td.visible-print {
 
 html, body {
   height: 100%;
+<<<<<<< HEAD
   background-color: F8F8F8;
+=======
+>>>>>>> branch 'master' of https://github.com/hckiella/inf5750-GRH.git
 }
