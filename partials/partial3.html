@@ -19,17 +19,6 @@
 			<br /><br />
 
 			<div class="form-group">
-				<label for="UnitTypeSelector">Unit type:</label>
-				<select class="form-control" id="UnitTypeSelector">
-					<option>Placeholder1</option>
-					<option>Placeholder2</option>
-					<option>Placeholder3</option>
-					<option>Placeholder4</option>
-				</select>
-			</div>
-			</br /><br />
-
-			<div class="form-group">
 				<b>Opening date:</b> <input type="text" class="form-control" ng-model="newOrgUnit.openingDate" required/>
 			</div>
 			</br /><br />
@@ -46,7 +35,6 @@
 				<br></br>
 
 				<button type="submit" class="btn btn-sm" ng-click="getLocation()" ng-disabled="newOrgUnit.level != 4">Get location from browser</button>
-				<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow" ng-disabled="newOrgUnit.level != 4">Open map</button>
 				<nobr ng-if="newOrgUnit.level != 4">Adding/editing coordinates disabled for areas</nobr><br>
 			</div>
 			<br></br>

@@ -2,6 +2,8 @@
 
 angular.module('myApp.controllers', []).
     controller('MyCtrl1', ['$scope', 'OrgUnits', 'MapService', 'NavService', function ($scope, OrgUnits, MapService, NavService) {
+
+        console.log(dhisAPI);
         
     	$scope.currOrgUnit = OrgUnits.currOrgUnit;
 
