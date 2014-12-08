@@ -19,14 +19,12 @@
 			<br /><br />
 
 			<div class="form-group">
-				<b>Opening date:</b> <input name="openingDate" type="text" class="form-control" ng-pattern='/^(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])\-(199\d)|([2-9]\d{3})$/' ng-model="newOrgUnit.openingDate" />
+				<b>Opening date:</b> <input name="openingDate" type="text" class="form-control" ng-pattern='/^(199\d)|([2-9]\d{3})\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/' ng-model="newOrgUnit.openingDate" />
 			</div>
-			<span style="color: red" ng-show="editUnitForm.openingDate.$error.pattern">Incorrect Format, should be MM-DD-YYYY</span>
-			</br /><br />
+			<span style="color: red" ng-show="editUnitForm.openingDate.$error.pattern">Incorrect Format, should be YYYY-MM-DD</span>
+			</br /><br />									
 			
 			
-
-
 				<b>Coordinates</b></br />
 				<div class="form-group">
 					Latitude: <input name="latitude" type="text" class="form-control" ng-model="newOrgUnit.latitude" ng-pattern='/^[0-9]{1,7}(\.[0-9]+)?$/'  ng-disabled="newOrgUnit.level != 4"/>
@@ -52,6 +50,8 @@
 
 			<br></br>
 		
-			<button ng-click="updateOrgUnit();editOrgUnit()" class="btn btn-success btn-sm">Save</button>
+			
+			<button ng-click="updateOrgUnit();editOrgUnit()" class="btn btn-success btn-sm" ng-disabled="editUnitForm.$invalid">Save</button>
+			<p ng-if="editUnitForm.$invalid" style="color:red">You have to fill in all required fields</p>
 		</form>
 	</div>
