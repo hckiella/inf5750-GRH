@@ -3,8 +3,7 @@
 angular.module('myApp.controllers', []).
     controller('MyCtrl1', ['$scope', 'OrgUnits', 'MapService', 'NavService', function ($scope, OrgUnits, MapService, NavService) {
 
-        console.log(dhisAPI);
-        
+
     	$scope.currOrgUnit = OrgUnits.currOrgUnit;
 
         $scope.showTable = true;
@@ -14,7 +13,7 @@ angular.module('myApp.controllers', []).
         var srLatLng = new google.maps.LatLng(8.460555,-11.779889);
         MapService.showMap("map-canvas");
 
-        // hardcoded to get Sierra Leone as first org unit in hierarchy - change
+        // hardcoded to get Sierra Leone as first org unit in hierarchy
         if(!$scope.currOrgUnit)  {
             getSingleOrgUnit("ImspTQPwCqd");
         }
@@ -75,24 +74,22 @@ angular.module('myApp.controllers', []).
         }
 
 
-
         $scope.editButtonTekst = "Edit";
-        $scope.edit = false;
 
-        $scope.test2 = false;
+        $scope.edit = false;
 
         $scope.hideShowTable = function() {
             $scope.showTable = !$scope.showTable;
 
-            if($scope.test2)
-                $scope.test2 = !$scope.test2;
+            if($scope.edit)
+                $scope.edit = !$scope.edit;
 
             if(!$scope.showTable)
                 $scope.detailsButtonTekst = "Hide details";
             else
                 $scope.detailsButtonTekst = "Show details";
 
-            if($scope.test2 == true)
+            if($scope.edit == true)
                 $scope.editButtonTekst = "Cancel";
             else
                 $scope.editButtonTekst = "Edit";
@@ -100,10 +97,9 @@ angular.module('myApp.controllers', []).
 
         $scope.editOrgUnit = function() {
 
-            $scope.test2= !$scope.test2;
             $scope.edit = !$scope.edit;
             
-            if($scope.test2 == true) {
+            if($scope.edit == true) {
                 $scope.editButtonTekst = "Cancel";
 
                 $scope.newOrgUnit = jQuery.extend(true, {}, $scope.currOrgUnit);
@@ -120,7 +116,6 @@ angular.module('myApp.controllers', []).
         $scope.navigateReset = function() {
         	
         	$scope.showTable = true;
-            $scope.test2 = false;
         	$scope.edit = false;
         	$scope.editButtonTekst = "Edit";
         	$scope.detailsButtonTekst = "Show details";
@@ -134,19 +129,18 @@ angular.module('myApp.controllers', []).
             OrgUnits.updateOrgUnit($scope.newOrgUnit);
             $scope.currOrgUnit = $scope.newOrgUnit;
             $scope.newOrgUnit = null;
-            $scope.edit = false;
         }
 
         $scope.cancelUpdate = function() {
             $scope.currOrgUnit = $scope.newOrgUnit;
             $scope.newOrgUnit = null;
-            $scope.edit = false;
         }
 
 
+        /* not in use */
         $scope.deleteOrgUnit = function(orgUnit) {
-            var groupsUrl = "http://inf5750-6.uio.no/api/organisationUnitGroups/";
-            var unitUrl = "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id;
+            var groupsUrl = dhisAPI + "/api/organisationUnitGroups/";
+            var unitUrl = dhisAPI + "/api/organisationUnits/" + orgUnit.id;
 
             // manually delete references from organisationUnitGroups as a workaround
             for(var i = 0; i < orgUnit.organisationUnitGroups.length; i++) {
@@ -214,6 +208,8 @@ angular.module('myApp.controllers', []).
                 }
                 $scope.newOrgUnit = {};
             });
+
+            window.location.assign(dhisAPI + "//apps/dhis-webapp-GHR/index.html");
         }
 
         $scope.getLocation = function() {

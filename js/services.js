@@ -1,38 +1,31 @@
 'use strict';
 
-/* It has become considered better practise to separate services into
- different files. Not like it's done here. See angular-seed for an example
- of how it's done (this is based on angular-seed one year ago.
- */
-
-/* Services */
-
 var myAppServices = angular.module('myApp.services', ['ngResource']);
 
 myAppServices.factory("OrgUnits", ['$http', function($http) {
 	var OrgUnits = {};
 
 	OrgUnits.getAllOrgUnits = function() {
-		return $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits.jsonp?callback=JSON_CALLBACK&fields=name,id&paging=false");
+		return $http.jsonp(dhisAPI + "/api/organisationUnits.jsonp?callback=JSON_CALLBACK&fields=name,id&paging=false");
 	}
 
 	OrgUnits.getCurrOrgUnit = function(id) {
-		return $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits/" + id +".jsonp?callback=JSON_CALLBACK").success(function(response) {
+		return $http.jsonp(dhisAPI + "/api/organisationUnits/" + id +".jsonp?callback=JSON_CALLBACK").success(function(response) {
 			OrgUnits.currOrgUnit = response;
 		});
 	}
 
 	OrgUnits.getOrgUnit = function(id) {
-		return $http.jsonp("http://inf5750-6.uio.no/api/organisationUnits/" + id + ".jsonp?callback=JSON_CALLBACK");
+		return $http.jsonp(dhisAPI + "/api/organisationUnits/" + id + ".jsonp?callback=JSON_CALLBACK");
 	}
 
 	OrgUnits.geoCall = function(argument) {
-		return $http.get("http://inf5750-6.uio.no/api/geoFeatures.json" + argument);
+		return $http.get(dhisAPI + "/api/geoFeatures.json" + argument);
 	}
 
 	OrgUnits.saveOrgUnit = function(newOrgUnit) {
 		return $http({
-			url: "http://inf5750-6.uio.no/api/organisationUnits",
+			url: dhisAPI + "/api/organisationUnits",
 			dataType: "json",
 			method: "POST",
 			data: newOrgUnit,
@@ -41,13 +34,12 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 			}
 		}).success(function(response) {
 			OrgUnits.lastStatus = response.status;
-			console.log(response);
 		});
 	}
 
 	OrgUnits.updateOrgUnit = function(orgUnit) {
 		return $http({
-			url: "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id,
+			url: dhisAPI + "/api/organisationUnits/" + orgUnit.id,
 			dataType: "json",
 			method: "PUT",
 			data: JSON.stringify(orgUnit),
@@ -61,7 +53,7 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 
 	OrgUnits.deleteOrgUnit = function(orgUnit) {
 		return $http({
-		 url: "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id,
+		 url: dhisAPI + "/api/organisationUnits/" + orgUnit.id,
 		 method: "DELETE"
 		 }).success(function() {
 		 	alert("Unit successfully deleted");
@@ -81,6 +73,8 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 }]);
 
 
+
+/* Service for map-related functions */
 myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 	var MapService = {};
 	var markers = new Array();
@@ -96,7 +90,6 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 		if(boundary) {
 			boundary.setMap(null);
 		}
-		console.log("clearmap");
 	}
 
 	MapService.resetCenter = function() {
@@ -237,6 +230,9 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 }]);
 
 
+
+
+/* Simple service for navigating row */
 myAppServices.factory("NavService", ['OrgUnits', function (OrgUnits) {
 	var NavService = {};
 	NavService.naviArray = new Array(4);
