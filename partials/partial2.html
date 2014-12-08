@@ -1,24 +1,15 @@
-<<<<<<< HEAD
 <div id="header">
 	<h2>Add Organisation Unit</h2>
 </div>
 <div ng-show="!parentSet">
+
 
 	<p>Choose parent
 		<button id="previousButton" class="btn btn-sm" ng-click="getOrgUnit(newOrgUnit.parent.parent.id)" ng-disabled="newOrgUnit.parent.level == 1 || !newOrgUnit.parent" type="submit">Previous level</button>
 		<button ng-click="setParent()" class="btn btn-sm">Done</button>
 		<a href="#/view1"><button id="cancelButton" class="btn btn-sm" type="submit">Cancel</button></a>
 	</p>
-=======
-<!--<style>
-	body {background-color: #f5f5f5}
-</style>
--->
-<div id="header">
-	<h2>Add Organisation Unit</h2>
-</div>
-<div ng-show="!parentSet">
->>>>>>> branch 'master' of https://github.com/hckiella/inf5750-GRH.git
+
 
 	<p>
 		<b>Currently chosen: </b>
@@ -26,38 +17,6 @@
 		<b ng-show="!newOrgUnit.parent"> None</b>
 	</p>
 
-<<<<<<< HEAD
-	<div id="pTableDiv">
-		<table id="parentTable">
-			<tr ng-repeat="x in newOrgUnit.parent.children | orderBy:'name'" ng-click="getOrgUnit(x.id)">
-=======
-	<p>Choose parent
-		<button id="previousButton" class="btn btn-sm" ng-click="getOrgUnit(newOrgUnit.parent.parent.id)" ng-disabled="newOrgUnit.parent.level == 1 || !newOrgUnit.parent" type="submit">Previous level</button>
-		<button ng-click="setParent()" class="btn btn-sm">Done</button>
-		<a href="#/view1"><button id="cancelButton" class="btn btn-sm" type="submit">Cancel</button></a>
-	</p>
->>>>>>> branch 'master' of https://github.com/hckiella/inf5750-GRH.git
-
-<<<<<<< HEAD
-				<td style="cursor:pointer">{{ x.name }}</td>
-=======
->>>>>>> branch 'master' of https://github.com/hckiella/inf5750-GRH.git
-
-<<<<<<< HEAD
-			</tr>
-		</table>
-=======
-	<p>
-		<b>Currently chosen: </b>
-		<b ng-show="newOrgUnit.parent"> {{newOrgUnit.parent.name}}</b>
-		<b ng-show="!newOrgUnit.parent"> None</b>
-	</p>
->>>>>>> branch 'master' of https://github.com/hckiella/inf5750-GRH.git
-
-<<<<<<< HEAD
-		<b ng-if="newOrgUnit.parent.level == 4">No children</b>
-	</div>
-=======
 	<div id="pTableDiv">
 		<table id="parentTable">
 			<tr ng-repeat="x in newOrgUnit.parent.children | orderBy:'name'" ng-click="getOrgUnit(x.id)">
@@ -70,82 +29,73 @@
 		<b ng-if="newOrgUnit.parent.level == 4">No children</b>
 	</div>
 
->>>>>>> branch 'master' of https://github.com/hckiella/inf5750-GRH.git
 
 </div>
+
 
 <div class="container"  ng-show="parentSet">
-<b>Chosen parent: {{newOrgUnit.parent.name}}</b>
- <button ng-click="resetParent()" class="btn btn-sm">Change</button>   
- <a href="#/view1"><button id="cancelButton" class="btn btn-sm" type="submit">Cancel</button></a>
-<br></br>
+	<b>Chosen parent: {{newOrgUnit.parent.name}}</b>
+	<button ng-click="resetParent()" class="btn btn-sm">Change</button>
+	<a href="#/view1"><button id="cancelButton" class="btn btn-sm" type="submit">Cancel</button></a>
+	<br></br>
 
-<form name="addUnitForm" novalidate class="form-inline" ng-submit="submitForm(addUnitForm.$valid)" style="width:50%;float:left">
-    <div class="form-group">
-    	<b>Name:</b><b style="color:red">*</b> <input type="text" pattern="[a-z0-9. -]+" class="form-control" ng-model="newOrgUnit.name" required/>
-    </div> 
-    <div class="form-group">
-    	<b>Shortname:</b><b style="color:red">*</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName"/>
-    </div>
-    <br /><br />
-    
-    <div class="form-group">
-		<b>Unit code:</b> <input type="text" class="form-control" ng-model="newOrgUnit.unitCode"/>
-	</div>
-	 <div class="form-group">
-    	<b>Parent:</b> <input type="text" class="form-control" ng-model="newOrgUnit.parent.name" readonly />
-    </div>
-	
-	</br /><br />
-	
-	<div class="form-group">
-<<<<<<< HEAD
-		<b>Opening date:</b><b style="color:red">*</b> <input name="openingDate" type="text" class="form-control" ng-pattern='/^(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])\-(199\d)|([2-9]\d{3})$/' ng-model="newOrgUnit.openingDate" required/>
-	
-	</div>
-	
-    <span style="color: red" ng-show="addUnitForm.openingDate.$error.pattern">Incorrect Format, should be MM-DD-YYYY</span>			
-=======
-		<b>Opening date:</b> <input type="text" class="form-control" ng-model="newOrgUnit.openingDate"/>
-	</div>			
->>>>>>> branch 'master' of https://github.com/hckiella/inf5750-GRH.git
-	</br /><br />
-	
-    <div class="form-group">
-    	<b>Coordinates</b></br />
-    		
- 	 	<div class="form-group">
- 	 		Latitude: <input type="number" class="form-control" ng-model="newOrgUnit.latitude"  ng-disabled="newOrgUnit.parent.level < 3"/>
- 	 	</div>
- 	 	<div class="form-group">
- 	 		Longitude: <input type="number" class="form-control" ng-model="newOrgUnit.longitude"  ng-disabled="newOrgUnit.parent.level < 3"/>
- 	 	</div>
- 	 	
- 	 	<br></br>
- 	 	
- 	 	<button type="submit" class="btn btn-sm" ng-click="getLocation()"  ng-disabled="newOrgUnit.parent.level < 3">Get location from browser</button>
- 		<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow" ng-disabled="newOrgUnit.parent.level < 3">Open map</button>
-		<nobr ng-if="newOrgUnit.parent.level < 3">Adding coordinates disabled for areas</nobr><br>
- 		</div>
-  	<br></br>
-   	
-  	<div class="form-group">
-	  	<b>Active:</b> <input type="radio" ng-model="newOrgUnit.active" value="true" />yes
-    	<input type="radio" ng-model="newOrgUnit.active" value="false" />no<br />
-   	</div>
-           
-    <br></br>
-    
-    <button ng-click="resetForm()" class="btn btn-danger">RESET</button>
-    
-    <button type ="submit" ng-click="saveOrgUnit(newOrgUnit)" class="btn btn-success" ng-disabled="addUnitForm.$invalid">SAVE</button>
-  	<p ng-if="addUnitForm.$invalid" style="color:red">You have to fill in all required fields</p>
-  </form>
-  
-  <div id='map-canvas-save'></div>
-  
-<<<<<<< HEAD
+	<form name="addUnitForm" novalidate class="form-inline" ng-submit="submitForm(addUnitForm.$valid)" style="width:55%;float:left">
+		<div class="form-group">
+			<b>Name:</b><b style="color:red">*</b> <input type="text" pattern="[a-z0-9. -]+" class="form-control" ng-model="newOrgUnit.name" required/>
+		</div>
+		<div class="form-group">
+			<b>Shortname:</b><b style="color:red">*</b> <input type="text" class="form-control" ng-model="newOrgUnit.shortName"/>
+		</div>
+		<br /><br />
+
+		<div class="form-group">
+			<b>Unit code:</b> <input type="text" class="form-control" ng-model="newOrgUnit.unitCode"/>
+		</div>
+		<div class="form-group">
+			<b>Parent:</b> <input type="text" class="form-control" ng-model="newOrgUnit.parent.name" readonly />
+		</div>
+
+		<br /><br />
+
+		<div class="form-group">
+			<b>Opening date:</b><b style="color:red">*</b> <input name="openingDate" type="text" class="form-control" ng-pattern='/^(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])\-(199\d)|([2-9]\d{3})$/' ng-model="newOrgUnit.openingDate" required/>
+		</div><br>
+		<span style="color: red" ng-show="addUnitForm.openingDate.$error.pattern">Incorrect Format, should be MM-DD-YYYY</span>
+
+		</br /><br />
+
+
+		<div class="form-group">
+			<b>Coordinates</b></br />
+
+			<div class="form-group">
+				Latitude: <input type="number" class="form-control" ng-model="newOrgUnit.latitude"  ng-disabled="newOrgUnit.parent.level < 3"/>
+			</div>
+			<div class="form-group">
+				Longitude: <input type="number" class="form-control" ng-model="newOrgUnit.longitude"  ng-disabled="newOrgUnit.parent.level < 3"/>
+			</div>
+
+			<br></br>
+
+			<button type="submit" class="btn btn-sm" ng-click="getLocation()"  ng-disabled="newOrgUnit.parent.level < 3">Get location from browser</button>
+			<button type="submit" class="btn btn-sm" ng-click="showMap()" ng-if="!mapShow" ng-disabled="newOrgUnit.parent.level < 3">Open map</button>
+			<nobr ng-if="newOrgUnit.parent.level < 3">Adding coordinates disabled for areas</nobr><br>
+		</div>
+		<br></br>
+
+		<div class="form-group">
+			<b>Active:</b> <input type="radio" ng-model="newOrgUnit.active" ng-value="true" />yes
+			<input type="radio" ng-model="newOrgUnit.active" ng-value="false" />no<br />
+		</div>
+
+		<br></br>
+
+		<button ng-click="resetForm()" class="btn btn-danger">RESET</button>
+
+		<button type ="submit" ng-click="saveOrgUnit(newOrgUnit)" class="btn btn-success" ng-disabled="addUnitForm.$invalid">SAVE</button>
+		<p ng-if="addUnitForm.$invalid" style="color:red">You have to fill in all required fields</p>
+	</form>
+
+	<div id='map-canvas-save'></div>
+
 </div>
-=======
-</div>
->>>>>>> branch 'master' of https://github.com/hckiella/inf5750-GRH.git

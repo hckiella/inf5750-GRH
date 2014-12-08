@@ -6808,9 +6808,10 @@ td.visible-print {
 	
 	border-style: solid;
 	border-width: 10px;
+    border-right: 2px;
 	border-color: white;
   	float: left;
-  	width: 25%;
+  	width: 30%;
   	background-color: white;
 }
 
@@ -6818,9 +6819,10 @@ td.visible-print {
 	
 	border-style: solid;
 	border-width: 10px;
+    border-left: 2px;
 	border-color: white;
   	float: left;
-  	width: 75%;
+  	width: 70%;
   	height: 100%;
   	background-color: white;
 }
@@ -6913,8 +6915,5 @@ td.visible-print {
 
 html, body {
   height: 100%;
-<<<<<<< HEAD
   background-color: F8F8F8;
-=======
->>>>>>> branch 'master' of https://github.com/hckiella/inf5750-GRH.git
 }
