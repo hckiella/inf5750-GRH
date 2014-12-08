@@ -1,18 +1,15 @@
-<div>
-	<h2>Organisation Units</h2>
+<h2>Organisation Units</h2>
+<div id="leftDiv">
+
 	<a href="#/view2"><button id="addUnitButton" class="btn btn-sm" type="submit">Add new org. unit</button></a>
 
 	<br><br>
-</div>
-
-<div id="leftDiv">
-
-	<p style="clear:left">
-		<a id="level1" href="" ng-show="naviArray[0]" ng-click="data(naviArray[0]); navigateReset();" ng-disabled="!showTable">{{naviArray[0].name}}</a>
+	<div id="unitNav" style="clear:left;height: 45px">
+		<a id="level1" href="" ng-show="naviArray[0]" ng-click="data(naviArray[0]);navigateReset();" ng-disabled="!showTable">{{naviArray[0].name}}</a>
 		<a id="level2" href="" ng-show="naviArray[1]" ng-click="data(naviArray[1]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[1].name}}</a>
 		<a id="level3" href="" ng-show="naviArray[2]" ng-click="data(naviArray[2]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[2].name}}</a>
 		<a id="level4" href="" ng-show="naviArray[3]" ng-click="data(naviArray[3]);navigateReset();" ng-disabled="!showTable"> > {{naviArray[3].name}}</a>
-	</p>
+	</div>
 
 	<div id="filterBox">
 		Search units:<br> <input ng-model="searchText" ng-disabled="!showTable">
@@ -29,14 +26,14 @@
 
 		<table id="unitTable-filter" ng-if="searchText">
 			<tr><th>Name</th>
-			<tr ng-repeat="x in currentUnits | exact:searchText"  ng-click="data(x)">
+			<tr ng-repeat="x in currentUnits | exact:searchText | orderBy:'name'"  ng-click="data(x)">
 				<td style="cursor:pointer">{{x.name}}</td>
 			</tr>
 		</table>
 
-		<table id="unitTable" ng-if="currOrgUnit.level == 4">
+		<table id="unitTable" ng-if="currOrgUnit.level == 4  && !searchText">
 			<tr>
-				<th>Children <!--of {{currOrgUnit.name}}--></th>
+				<th>Children</th>
 			</tr>
 			<tr>
 				<td>None</td>
@@ -45,9 +42,9 @@
 
 		<table id="unitTable" ng-if="currOrgUnit.level != 4 && !searchText">
 			<tr>
-				<th>Children <!--of {{currOrgUnit.name}}--></th>
+				<th>Children</th>
 			</tr>
-			<tr ng-repeat="x in currOrgUnit.children" ng-click="data(x)">
+			<tr ng-repeat="x in currOrgUnit.children | orderBy:'name'" ng-click="data(x)">
 				<td style="cursor:pointer">{{ x.name }}</td>
 			</tr>
 			<tr ng-if="currOrgUnit.children.length == 0 ">
@@ -58,19 +55,20 @@
 
 	<div id="infoBlock" ng-if="!showTable">
 		<p>Name: {{currOrgUnit.name}} <br>
-			ShortName: {{currOrgUnit.shortName}}<br>
+			Shortname: {{currOrgUnit.shortName}}<br>
 			Id: {{currOrgUnit.id}}<br>
 			Level: {{currOrgUnit.level}}<br>
 			Opening date: {{currOrgUnit.openingDate}}<br>
-			Last updated: <br>
+			Last updated: {{currOrgUnit.lastUpdated.substring(0,10)}} {{currOrgUnit.lastUpdated.substring(11,19)}}<br>
 			Unit code: {{currOrgUnit.code}}<br>
-			Coordinates:<br>
+			Coordinates:
+			<nobr ng-if="currOrgUnit.level == 4 && currOrgUnit.coordinates">{{currOrgUnit.coordinates}}</nobr>
+			<nobr ng-if="currOrgUnit.level != 4 && currOrgUnit.coordinates">Several</nobr>
+			<nobr ng-if="!currOrgUnit.coordinates">None</nobr><br>
 			Active:
-			<id="" ng-if="currOrgUnit.active">yes</>
-		<id="" ng-if="!currOrgUnit.active">no</>
-	<br>
-	Display name: {{currOrgUnit.displayName}}<br>
-	<b>Parent:</b> {{currOrgUnit.parent.name}}</p>
+			<nobr ng-if="currOrgUnit.active == true">Yes</nobr>
+			<nobr ng-if="currOrgUnit.active == false">No</nobr><br>
+			Parent: {{currOrgUnit.parent.name}}</p>
 
 
 	<b>Unit groups</b>
@@ -87,143 +85,17 @@
 		<br></br>
 	</p>
 </div>
-
-
 </div>
 
 <div id="rightDiv">
 
 	<div>
-		<h2 ng-show="currOrgUnit"><!-- Currently viewing --> {{currOrgUnit.name}}</h2>
+		<h2 ng-show="currOrgUnit">{{currOrgUnit.name}}</h2>
 		<h2 ng-show="!currOrgUnit">No unit chosen</h2>
 
-
 	</div>
-	
 		<div ng-show="test2" ng-include="'partials/partial3.html'"></div>
 	
-	
 	<div id="map-canvas" ng-show="!test2"></div>
-	
-   
 
-	
 </div>
-
-
-<!--
-
-<div id="currentUnit" style="float:left;clear:left">
-	<p>
-		<b>Current unit: </b>
-		<b ng-show="currOrgUnit"> {{currOrgUnit.name}}</b>
-		<b ng-show="!currOrgUnit"> None</b>
-	</p>
-	<p>
-		<a href="#/view3"><button id="showInfoButton"  class="btn btn-sm" ng-disabled="!currOrgUnit" type="submit">Show info</button></a>
-	</p>
-</div>
-
--->
-<!--
-<div id="info" ng-if="currOrgUnit.level == 4">
-	<table class="table-striped">
-		<tr>
-			<th>Name</th>
-			<td>{{currOrgUnit.name}}</td>
-		</tr>
-
-		<tr>
-			<th>Href</th>
-			<td>{{currOrgUnit.href}}</td>
-		</tr>
-
-		<tr>
-			<th>Shortname</th>
-			<td>{{currOrgUnit.shortName}}</td>
-		</tr>
-
-		<tr>
-			<th>Id</th>
-			<td>{{currOrgUnit.id}}</td>
-		</tr>
-
-
-		<tr>
-			<th>Created</th>
-			<td>{{singleOrgUnit.created}}</td>
-		</tr>
-
-		<tr>
-			<th>Coordinates</th>
-			<td>{{currOrgUnit.coordinates}}</td>
-		</tr>
-	</table>
-</div>
- -->
-
-
-
-
-
-
-<!--<h2>Organisation Units</h2>
-<div>
-	<p>
-		<button id="previousButton"  class="btn btn-sm" ng-click="clearFilter(); clearMap(); data(currOrgUnit.parent)" ng-disabled="!currOrgUnit.parent" type="submit">Previous level</button>
-		<button id="backButton1"  class="btn btn-sm" ng-click="clearFilter(); clearMap(); data(previousOrgUnit)" ng-disabled="!previousOrgUnit" type="submit">Back</button>
-		<a href="#/view2"><button id="addUnitButton" class="btn btn-sm" type="submit">Add unit</button></a>
-	</p>
-	<p style="clear:both">
-		<a id="level1" href="" ng-show="naviArray[0]" ng-click="data(naviArray[0])">{{naviArray[0].name}}</a>
-		<a id="level2" href="" ng-show="naviArray[1]" ng-click="data(naviArray[1])"> > {{naviArray[1].name}}</a>
-		<a id="level3" href="" ng-show="naviArray[2]" ng-click="data(naviArray[2])"> > {{naviArray[2].name}}</a>
-		<a id="level4" href="" ng-show="naviArray[3]" ng-click="data(naviArray[3])"> > {{naviArray[3].name}}</a>
-	</p>
-</div>
-
-
-
-<div id="filterBox" style="clear:both">
-	Filter <input ng-model="searchText">
-<br></br>	
-</div>
-
-<div id="currentUnit" style="float:left;clear:left">
-	<p>
-		<b>Current unit: </b>
-		<b ng-show="currOrgUnit"> {{currOrgUnit.name}}</b>
-		<b ng-show="!currOrgUnit"> None</b>		
-	</p>
-	<p>
-		<a href="#/view3"><button id="showInfoButton"  class="btn btn-sm" ng-disabled="!currOrgUnit" type="submit">Show info</button></a>
-	</p>
-</div>
-
-
-
-
-<table id="unitTable-filter" ng-if="searchText && currOrgUnit.level != 4">
-	<tr><th>Name</th>
-  		<tr ng-repeat="x in currentUnits | exact:searchText"  ng-click="data(x)">
-    <td style="cursor:pointer">{{x.name}}</td>
-  	</tr>
-</table>
-
-
-
-
-<table id="unitTable" ng-if="currOrgUnit.level != 4 && !searchText">
-	<tr>
-		<th>name</th>
-	</tr>
-  	<tr ng-repeat="x in currOrgUnit.children" ng-click="data(x)">  		
-    	<td style="cursor:pointer">{{ x.name }}</td>
-  	</tr>
-</table>
-
-<div id="map-canvas"></div> <!--  ng-show="singleOrgUnit.level == 4"></div> -->
-
-
-
-

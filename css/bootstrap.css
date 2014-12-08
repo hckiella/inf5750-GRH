@@ -6805,21 +6805,48 @@ td.visible-print {
 }
 
 #leftDiv {
-  float: left;
-  width: 25%;
+	
+	border-style: solid;
+	border-width: 10px;
+	border-color: white;
+  	float: left;
+  	width: 25%;
+  	background-color: white;
 }
 
 #rightDiv {
-  float: left;
-  width: 75%;
+	
+	border-style: solid;
+	border-width: 10px;
+	border-color: white;
+  	float: left;
+  	width: 75%;
+  	height: 100%;
+  	background-color: white;
 }
 
-
+#addUnitDiv {
+	border-style: solid;
+	border-width: 10px;
+	border-color: white;
+	background-color: white;
+}
 
 #infoBlock {
 
   width: 100%;
 }
+
+#tableDiv {
+  height: 260px;
+  width: 95%;
+  overflow-y: scroll;
+}
+
+#unitTable {
+  width: 95%;
+}
+
 
 #unitTable tr:nth-child(even) {
   background-color: #f8f8f8;
@@ -6843,68 +6870,12 @@ td.visible-print {
   background-color: #fff;
 }
 
-/*
-#info {
-	float: left;
-	width: 20%;
-	clear: left;
+#pTableDiv {
+  height: 500px;
+  width: 28.5%;
+  overflow: auto;
 }
 
-#filterBox {
-	float: left;
-	clear: both;
-}
-
-#backButton1 {
-	float: left;
-	clear: left;
-	margin-right: 2px;
-	margin-left: 2px;
-}
-
-#backButton2 {
-	float: left;
-	clear: both;
-	margin-right: 2px;
-	margin-left: 2px;
-}
-
-#unitTable {
-	margin-left: 2px;
-	margin-right: 2px;
-	width: 15%;
-	max-height: 400px;
-	overflow: auto;
-	float: left;
-	clear: left;
-}
-
-
-
-#unitTable-filter {
-	margin-left: 2px;
-	margin-right: 2px;
-	width: 30%;
-	float: left;
-	clear: left;
-}
-
-
-
-#parentTable {
-	max-height: 400px;
-	overflow: auto;
-
-}
-#childrenTable {
-	max-height: 150px;
-	width: 200px;
-	overflow: auto;
-}
-
-
-
-*/
 
 #map-canvas {
   height: 400px;
@@ -6931,105 +6902,5 @@ td.visible-print {
 
 html, body {
   height: 100%;
+  background-color: F8F8F8;
 }
-
-/*#info {
-	float: left;
-	width: 20%;
-	clear: left;
-}
-
-#filterBox {
-	float: left;
-	clear: both;
-}
-
-#backButton1 {
-	float: left;
-	clear: left;
-	margin-right: 2px;
-	margin-left: 2px;	
-}
-
-#backButton2 {
-	float: left;
-	clear: both;
-	margin-right: 2px;
-	margin-left: 2px;	
-}
-
-#unitTable {
-	margin-left: 2px;
-	margin-right: 2px;
-	width: 15%;
-	max-height: 400px;
-	overflow: auto;
-	float: left;
-	clear: left;
-}
-
-#unitTable tr:nth-child(even) {
-	background-color: #f8f8f8;
-}
-#unitTable tr:nth-child(odd) {
-	background-color: #fff;
-}
-
-#unitTable-filter {
-	margin-left: 2px;
-	margin-right: 2px;
-	width: 30%;
-	float: left;
-	clear: left;
-}
-
-#unitTable-filter tr:nth-child(even) {
-	background-color: #f8f8f8;
-}
-#unitTable-filter tr:nth-child(odd) {
-	background-color: #fff;
-}
-
-#parentTable {
-	max-height: 400px;
-	overflow: auto;
-}
-#childrenTable {
-	max-height: 150px;
-	width: 200px;
-	overflow: auto;
-}
-
-#childrenTable-filter tr:nth-child(even) {
-	background-color: #f8f8f8;
-}
-#childrenTable-filter tr:nth-child(odd) {
-	background-color: #fff;
-}
-
- 
-
-
-#map-canvas {
-	height: 400px;
-	width: 60%;
-	float: right;
-}
-
-#map-canvas-save {
-	height: 400px;
-	width: 50%;
-	float: right;
-}
-
-
-#map-canvas-show {
-	height: 400px;
-	width: 50%;
-	float: right;
-}
-
-
-html, body {
-	height: 100%;
-	*/
