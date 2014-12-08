@@ -212,8 +212,25 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 		}
 	}
 
-	MapService.addMarker = function(orgUnit) {
-		console.log(MapService.addMarker);
+
+	MapService.getLocation = function(callback) {
+		if (Modernizr.geolocation) {
+			navigator.geolocation
+				.getCurrentPosition(callback, locationError);
+		} else {
+			alert("Error retrieving location (Modernizr.geolocation not present)");
+		}
+
+		return MapService;
+	}
+
+	function locationFound(position) {
+		MapService.latitude = position.coords.latitude;
+		MapService.longitude = position.coords.longitude;
+	}
+
+	function locationError(error) {
+		alert("Undefined error while retrieving location");
 	}
 
 	return MapService;

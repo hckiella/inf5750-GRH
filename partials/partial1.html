@@ -45,7 +45,7 @@
 
 		<table id="unitTable" ng-if="currOrgUnit.level != 4 && !searchText">
 			<tr>
-				<th>Children <!--of {{currOrgUnit.name}}--></th>
+				<th>Children</th>
 			</tr>
 			<tr ng-repeat="x in currOrgUnit.children | orderBy:'name'" ng-click="data(x)">
 				<td style="cursor:pointer">{{ x.name }}</td>
@@ -69,8 +69,8 @@
 			<nobr ng-if="currOrgUnit.level != 4 && currOrgUnit.coordinates">Several</nobr>
 			<nobr ng-if="!currOrgUnit.coordinates">None</nobr><br>
 			Active:
-			<nobr ng-if="currOrgUnit.active == true">yes</nobr>
-			<nobr ng-if="currOrgUnit.active == false">no</nobr><br>
+			<nobr ng-if="currOrgUnit.active == true">Yes</nobr>
+			<nobr ng-if="currOrgUnit.active == false">No</nobr><br>
 			Parent: {{currOrgUnit.parent.name}}</p>
 
 
@@ -95,7 +95,7 @@
 <div id="rightDiv">
 
 	<div>
-		<h2 ng-show="currOrgUnit"><!-- Currently viewing --> {{currOrgUnit.name}}</h2>
+		<h2 ng-show="currOrgUnit">{{currOrgUnit.name}}</h2>
 		<h2 ng-show="!currOrgUnit">No unit chosen</h2>
 
 

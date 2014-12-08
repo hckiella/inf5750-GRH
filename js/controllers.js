@@ -72,7 +72,8 @@ angular.module('myApp.controllers', []).
             });
         }
 
-        /* old controller 3 */
+
+
         $scope.editButtonTekst = "Edit";
         $scope.edit = false;
 
@@ -147,8 +148,6 @@ angular.module('myApp.controllers', []).
 
             // manually delete references from organisationUnitGroups as a workaround
             for(var i = 0; i < orgUnit.organisationUnitGroups.length; i++) {
-                console.log("Have to delete " + orgUnit.id + " from " + orgUnit.organisationUnitGroups[i].name + "s members");
-                console.log(groupsUrl + orgUnit.organisationUnitGroups[i].id + "/" + "organisationUnits/" + orgUnit.id);
                 OrgUnits.apiDelete(groupsUrl + orgUnit.organisationUnitGroups[i].id + "/" + "organisationUnits/" + orgUnit.id);
             }
 
@@ -156,6 +155,15 @@ angular.module('myApp.controllers', []).
             $scope.currOrgUnit = null;
         }
 
+
+        $scope.getLocation = function () {
+            MapService.getLocation(locationFound);
+        }
+
+        function locationFound(position) {
+            $scope.latitude = position.coords.latitude;
+            $scope.longitude = position.coords.longitude;
+        }
 
     }])
     .controller('MyCtrl2', ['$scope', 'OrgUnits', 'MapService', function ($scope, OrgUnits, MapService) {
