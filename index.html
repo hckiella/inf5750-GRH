@@ -15,6 +15,11 @@
 	xhReq.send(null);
 	var serverResponse = JSON.parse(xhReq.responseText);
 	var dhisAPI = serverResponse.activities.dhis.href;
+	
+	function reload() {
+		
+		window.location.assign("http://inf5750-6.uio.no//apps/dhis-webapp-GRH/index.html#/view1");
+	}
 </script>
 
 <body>
@@ -27,7 +32,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="./index.html">Facility registry
+				<a class="navbar-brand" href="./index.html" onclick="reload()">Facility registry
 					DHIS2 App</a>
 			</div>
 			<div class="navbar-collapse collapse">

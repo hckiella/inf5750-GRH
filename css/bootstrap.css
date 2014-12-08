@@ -6805,21 +6805,48 @@ td.visible-print {
 }
 
 #leftDiv {
-  float: left;
-  width: 25%;
+	
+	border-style: solid;
+	border-width: 10px;
+	border-color: white;
+  	float: left;
+  	width: 25%;
+  	background-color: white;
 }
 
 #rightDiv {
-  float: left;
-  width: 75%;
+	
+	border-style: solid;
+	border-width: 10px;
+	border-color: white;
+  	float: left;
+  	width: 75%;
+  	height: 100%;
+  	background-color: white;
 }
 
-
+#addUnitDiv {
+	border-style: solid;
+	border-width: 10px;
+	border-color: white;
+	background-color: white;
+}
 
 #infoBlock {
 
   width: 100%;
 }
+
+#tableDiv {
+  height: 260px;
+  width: 95%;
+  overflow-y: scroll;
+}
+
+#unitTable {
+  width: 95%;
+}
+
 
 #tableDiv {
   height: 312px;
@@ -6886,4 +6913,8 @@ td.visible-print {
 
 html, body {
   height: 100%;
+<<<<<<< HEAD
+  background-color: F8F8F8;
+=======
+>>>>>>> branch 'master' of https://github.com/hckiella/inf5750-GRH.git
 }
