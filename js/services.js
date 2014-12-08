@@ -35,7 +35,7 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 			url: "http://inf5750-6.uio.no/api/organisationUnits",
 			dataType: "json",
 			method: "POST",
-			data: JSON.stringify(newOrgUnit),
+			data: newOrgUnit,
 			headers: {
 				"Content-Type": "application/json"
 			}
@@ -46,7 +46,6 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 	}
 
 	OrgUnits.updateOrgUnit = function(orgUnit) {
-		console.log("orgUnits.update");
 		return $http({
 			url: "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id,
 			dataType: "json",
@@ -56,26 +55,17 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 				"Content-Type": "application/json"
 			}
 		}).success(function(response) {
-			console.log("update-success");
+			alert("Unit successfully updated");
 		});
 	}
 
 	OrgUnits.deleteOrgUnit = function(orgUnit) {
-		var url = "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id;
-		console.log(url);
-
-		for(var i = 0; i < orgUnit.organisationUnitGroups.length; i++) {
-			console.log(orgUnit.organisationUnitGroups[i].name + " " + orgUnit.organisationUnitGroups[i].id);
-		}
-
-		console.log("Parent: " + orgUnit.parent.id);
-
-		/*return $http({
+		return $http({
 		 url: "http://inf5750-6.uio.no/api/organisationUnits/" + orgUnit.id,
 		 method: "DELETE"
-		 }).success(function(response) {
-		 console.log("success");
-		 });*/
+		 }).success(function() {
+		 	alert("Unit successfully deleted");
+		 });
 	}
 
 	OrgUnits.apiDelete = function(url) {
@@ -83,7 +73,7 @@ myAppServices.factory("OrgUnits", ['$http', function($http) {
 			url: url,
 			method: "DELETE"
 		}).success(function(response) {
-			console.log("success");
+			console.log("Delete success");
 		});
 	}
 
@@ -121,7 +111,6 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 			mapTypeId: google.maps.MapTypeId.TERRAIN
 		}
 		MapService.map = new google.maps.Map(document.getElementById(mapName), mapOptions);
-		console.log("showMap");
 	}
 
 	MapService.showCoords = function(orgUnit, callback) {
@@ -131,10 +120,8 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 		}
 
 		else {
-			if (orgUnit.coordinates) { //else if
+			if (orgUnit.coordinates) {
 				if (orgUnit.level == 4) {
-					console.log(orgUnit.coordinates);
-					//MapService.clearMap();
 					showSingleUnit(orgUnit);
 				}
 
@@ -175,15 +162,12 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 
 
 	function showBoundary(orgUnit) {
-		console.log(orgUnit.name);
-
 		var boundaryCoords = new Array();
 
 		var markerBounds = new google.maps.LatLngBounds();
 
 		var arrCoords, resCoords;
 		arrCoords = orgUnit.coordinates.split("],[");
-		console.log(arrCoords.length);
 		for (var j = 0; j < arrCoords.length; j++) {
 			resCoords = arrCoords[j].split(",");
 
@@ -228,8 +212,25 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 		}
 	}
 
-	MapService.addMarker = function(orgUnit) {
-		console.log(MapService.addMarker);
+
+	MapService.getLocation = function(callback) {
+		if (Modernizr.geolocation) {
+			navigator.geolocation
+				.getCurrentPosition(callback, locationError);
+		} else {
+			alert("Error retrieving location (Modernizr.geolocation not present)");
+		}
+
+		return MapService;
+	}
+
+	function locationFound(position) {
+		MapService.latitude = position.coords.latitude;
+		MapService.longitude = position.coords.longitude;
+	}
+
+	function locationError(error) {
+		alert("Undefined error while retrieving location");
 	}
 
 	return MapService;
@@ -239,6 +240,8 @@ myAppServices.factory("MapService", ['OrgUnits', function (OrgUnits) {
 myAppServices.factory("NavService", ['OrgUnits', function (OrgUnits) {
 	var NavService = {};
 	NavService.naviArray = new Array(4);
+	var parent = {};
+	var level;
 
 	NavService.createNaviArray = function(orgUnit) {
 		NavService.naviArray[orgUnit.level - 1] = orgUnit;
@@ -247,31 +250,19 @@ myAppServices.factory("NavService", ['OrgUnits', function (OrgUnits) {
 			NavService.naviArray[i] = null;
 		}
 
-		if(orgUnit.level != 1) {
+		if(orgUnit.level > 2) {
 			if((NavService.naviArray[orgUnit.level - 2] == null) || (NavService.naviArray[orgUnit.level - 2].id != orgUnit.parent.id)) {
 				console.log("wrong parent");
+				OrgUnits.getOrgUnit(orgUnit.parent.id).then(function(response) {
+					var parent = response.data;
+					NavService.naviArray[parent.level - 1] = parent;
 
-				var parent = orgUnit.parent;
-				while(parent.level > 0) {
-					OrgUnits.getOrgUnit(parent.id).then(function(response) {
-						parent = response;
-						NavService.naviArray[parent.level-1] = parent;
-					});
-				}
+					if(parent.level > 2) {
+						NavService.naviArray[parent.level - 2] = parent.parent;
+					}
+				});
 			}
 		}
-		/*
-		 if (orgUnit.level != 1) {
-		 if (NavService.naviArray[orgUnit.level-2].id != orgUnit.parent.id) {
-		 var level = orgUnit.level;
-		 while (level > 0) {
-		 console.log("feil parent");
-		 level--;
-		 }
-		 }
-
-		 }
-		 */
 	}
 
 	return NavService;

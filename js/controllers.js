@@ -38,24 +38,6 @@ angular.module('myApp.controllers', []).
         $scope.clearMap = function() {
             MapService.clearMap();
         }
-        
-
-        $scope.hideShowTable = function() {
-            $scope.showTable = !$scope.showTable;
-
-            if($scope.test2)
-                $scope.test2 = !$scope.test2;
-            
-            if(!$scope.showTable)
-                $scope.detailsButtonTekst = "Hide details";
-            else
-                $scope.detailsButtonTekst = "Show details";
-            
-            if($scope.test2 == true)
-                $scope.editButtonTekst = "Cancel";
-            else
-                $scope.editButtonTekst = "Edit";
-        }
 
         function getFilterInput() {
             $scope.searchText = document.getElementById('searchText');
@@ -90,11 +72,29 @@ angular.module('myApp.controllers', []).
             });
         }
 
-        /* old controller 3 */
+
+
         $scope.editButtonTekst = "Edit";
         $scope.edit = false;
 
         $scope.test2 = false;
+
+        $scope.hideShowTable = function() {
+            $scope.showTable = !$scope.showTable;
+
+            if($scope.test2)
+                $scope.test2 = !$scope.test2;
+
+            if(!$scope.showTable)
+                $scope.detailsButtonTekst = "Hide details";
+            else
+                $scope.detailsButtonTekst = "Show details";
+
+            if($scope.test2 == true)
+                $scope.editButtonTekst = "Cancel";
+            else
+                $scope.editButtonTekst = "Edit";
+        }
 
         $scope.editOrgUnit = function() {
 
@@ -103,7 +103,14 @@ angular.module('myApp.controllers', []).
             
             if($scope.test2 == true) {
                 $scope.editButtonTekst = "Cancel";
+
                 $scope.newOrgUnit = jQuery.extend(true, {}, $scope.currOrgUnit);
+
+                if(($scope.newOrgUnit.coordinates) && ($scope.currOrgUnit.level == 4)) {
+                    var coordinates = JSON.parse($scope.newOrgUnit.coordinates);
+                    $scope.newOrgUnit.latitude = coordinates[1];
+                    $scope.newOrgUnit.longitude = coordinates[0];
+                }
             }
             else
                 $scope.editButtonTekst = "Edit";
@@ -111,17 +118,17 @@ angular.module('myApp.controllers', []).
         $scope.navigateReset = function() {
         	
         	$scope.showTable = true;
+            $scope.test2 = false;
         	$scope.edit = false;
-        	$scope.test2 = false;
         	$scope.editButtonTekst = "Edit";
         	$scope.detailsButtonTekst = "Show details";
         }
 
         $scope.updateOrgUnit = function() {
-            console.log("scope.update");
-            console.log($scope.newOrgUnit);
-            console.log($scope.newOrgUnit.active);
-            //$scope.newOrgUnit.active = (bool)$scope.newOrgUnit.active;
+            if(($scope.newOrgUnit.latitude) && ($scope.newOrgUnit.longitude) && ($scope.currOrgUnit.level == 4)) {
+                $scope.newOrgUnit.coordinates = "[" + $scope.newOrgUnit.longitude + "," + $scope.newOrgUnit.latitude + "]";
+            }
+
             OrgUnits.updateOrgUnit($scope.newOrgUnit);
             $scope.currOrgUnit = $scope.newOrgUnit;
             $scope.newOrgUnit = null;
@@ -141,8 +148,6 @@ angular.module('myApp.controllers', []).
 
             // manually delete references from organisationUnitGroups as a workaround
             for(var i = 0; i < orgUnit.organisationUnitGroups.length; i++) {
-                console.log("Have to delete " + orgUnit.id + " from " + orgUnit.organisationUnitGroups[i].name + "s members");
-                console.log(groupsUrl + orgUnit.organisationUnitGroups[i].id + "/" + "organisationUnits/" + orgUnit.id);
                 OrgUnits.apiDelete(groupsUrl + orgUnit.organisationUnitGroups[i].id + "/" + "organisationUnits/" + orgUnit.id);
             }
 
@@ -151,16 +156,24 @@ angular.module('myApp.controllers', []).
         }
 
 
+        $scope.getLocation = function () {
+            MapService.getLocation(locationFound);
+        }
+
+        function locationFound(position) {
+            $scope.latitude = position.coords.latitude;
+            $scope.longitude = position.coords.longitude;
+        }
+
     }])
     .controller('MyCtrl2', ['$scope', 'OrgUnits', 'MapService', function ($scope, OrgUnits, MapService) {
-        $scope.newOrgUnit = {};
         var mapShown = false;
 
+        $scope.newOrgUnit = {};
+        $scope.newOrgUnit.parent = OrgUnits.currOrgUnit;
         $scope.parentSet = false;
 
-        $scope.newOrgUnit.parent = OrgUnits.currOrgUnit;
-
-        $scope.setParent = function(parent) {
+        $scope.setParent = function() {
             $scope.parentSet = true;
         }
 
@@ -169,8 +182,8 @@ angular.module('myApp.controllers', []).
 
         }
 
-        $scope.getCurrOrgUnit = function(id) {
-            OrgUnits.getCurrOrgUnit(id).then(function(response) {
+        $scope.getOrgUnit = function(id) {
+            OrgUnits.getOrgUnit(id).then(function(response) {
                 $scope.orgUnits = response.data.children;
                 $scope.newOrgUnit.parent = response.data;
             });
@@ -187,6 +200,9 @@ angular.module('myApp.controllers', []).
         }
 
         $scope.saveOrgUnit = function(newOrgUnit) {
+            if(newOrgUnit.longitude && newOrgUnit.latitude) {
+                newOrgUnit.coordinates = "[" + newOrgUnit.longitude + ","  + newOrgUnit.latitude + "]";
+            }
             OrgUnits.saveOrgUnit(newOrgUnit).then(function() {
                 if(OrgUnits.lastStatus == "SUCCESS") {
                     alert("Unit successfully saved ");
