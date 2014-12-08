@@ -27,14 +27,13 @@
 			
 				<b>Coordinates</b></br />
 				<div class="form-group">
-					Latitude: <input name="latitude" type="text" class="form-control" ng-model="newOrgUnit.latitude" ng-pattern='/^[0-9]{1,7}(\.[0-9]+)?$/'  ng-disabled="newOrgUnit.level != 4"/>
+					Latitude: <input name="latitude" type="text" class="form-control" ng-model="newOrgUnit.latitude" ng-pattern='/^[(-9)-9]{1,7}(\.[0-9]+)?$/'  ng-disabled="newOrgUnit.level != 4"/>
 				</div>
 				<div class="form-group">
-					Longitude: <input name="longitude" type="text" class="form-control" ng-model="newOrgUnit.longitude" ng-pattern='/^[0-9]{1,7}(\.[0-9]+)?$/' ng-disabled="newOrgUnit.level != 4"/>
+					Longitude: <input name="longitude" type="text" class="form-control" ng-model="newOrgUnit.longitude" ng-pattern='/^[(-9)-9]{1,7}(\.[0-9]+)?$/' ng-disabled="newOrgUnit.level != 4"/>
 				</div>
 				<br></br>
 				<span style="color: red" ng-show="editUnitForm.latitude.$error.pattern">Incorrect latitude, should be 0.6565</span>
-				<span style="color: red" ng-show="editUnitForm.longitude.$error.pattern">Incorrect longitude, should be 0.6565</span>
 			
 				<br></br>
 
